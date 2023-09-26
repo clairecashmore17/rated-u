@@ -25,11 +25,19 @@ const userSchema = new Schema({
   university: {
     type: Schema.Types.ObjectId,
     ref: "University",
+    required: false,
   },
   major: {
     type: Schema.Types.ObjectId,
     ref: "Major",
+    required: false,
   },
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   password: {
     type: String,
     required: true,

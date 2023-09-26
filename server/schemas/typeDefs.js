@@ -36,6 +36,7 @@ const typeDefs = gql`
     email: String
     university: University
     major: Major
+    friends: [User]
   }
   type Query {
     user: User
@@ -46,8 +47,15 @@ const typeDefs = gql`
       username: String!
       email: String!
       password: String!
-      profile_img: String!
+      first_name: String!
+      last_name: String!
+      university: ID
+      major: ID
     ): Auth
+
+    login(email: String!, password: String!): Auth
+
+    addFriend(friendId: ID!): User
   }
 `;
 

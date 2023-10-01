@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\server",
+    "\\server\\models",
+    "\\server\\schemas"
+  ],
+  "SelectedNode": "\\server\\schemas\\resolvers.js",
+  "PreviewInSolutionExplorer": false
+}

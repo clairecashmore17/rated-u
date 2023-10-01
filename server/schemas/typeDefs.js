@@ -41,6 +41,7 @@ const typeDefs = gql`
   type Query {
     user: User
     users: [User]
+    majors: Major
   }
   type Mutation {
     addUser(

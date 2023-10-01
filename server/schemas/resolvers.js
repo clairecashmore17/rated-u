@@ -42,16 +42,45 @@ const resolvers = {
 
       return { token, user };
     },
-    addFriend: async (parent, { friendId }, context) => {
+    // THIS IS NOT WORKING (Possibly a object casting issue)
+    deleteFriend: async (parent, { friendId }, context) => {
       if (context.user) {
         const newFriend = await User.findById(friendId);
-        const user = await User.findByIdAndUpdate(
+        console.log(typeof newFriend._id);
+        console.log(
+          `Deleting friend ${newFriend.username} with ID ${newFriend.id}`
+        );
+        const deletedFriend = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $push: { friends: { _id: newFriend.id } },
+            $pull: { friends: { _id: friendId } },
           },
           { new: true }
         );
+        // console.log(deletedFriend);
+
+        return deletedFriend.populate("friends");
+      }
+    },
+    addFriend: async (parent, { friendId }, context) => {
+      if (context.user) {
+        const newFriend = await User.findById(friendId);
+        const user = await User.findById(context.user._id);
+        //Filter out if any matching IDs in friend list
+        const result = user.friends.filter((id) => id == friendId);
+        if (result == "") {
+          console.log("no matching ID in friends list, adding friend. \n");
+          const newUser = await User.findByIdAndUpdate(
+            { _id: context.user._id },
+            {
+              $push: { friends: { _id: newFriend.id } },
+            },
+            { new: true }
+          );
+        } else {
+          throw new Error("Cannot add same friends twice");
+        }
+
         return user.populate("friends");
       }
 

@@ -14,5 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "nodemon": "^3.0.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/clairecashmore17/rated-u/issues"
+  },
+  "homepage": "https://github.com/clairecashmore17/rated-u#readme"
 }

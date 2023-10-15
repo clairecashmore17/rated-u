@@ -42,6 +42,9 @@ const typeDefs = gql`
     user: User
     users: [User]
     majors: Major
+    university: University
+    universities: [University]
+    upvote: Upvote
   }
   type Mutation {
     addUser(
@@ -58,6 +61,8 @@ const typeDefs = gql`
 
     addFriend(friendId: ID!): User
     deleteFriend(friendId: ID!): User
+
+    addUpvote(universityId: ID!): University
   }
 `;
 

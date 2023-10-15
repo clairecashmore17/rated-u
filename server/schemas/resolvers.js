@@ -16,8 +16,8 @@ const resolvers = {
     },
     users: async () => {
       return User.find();
-        },
-    majors: async () => {
+    },
+majors: async () => {
         return Major.find();
     }
   },
@@ -45,7 +45,7 @@ const resolvers = {
 
       return { token, user };
     },
-    // THIS IS NOT WORKING (Possibly a object casting issue)
+// THIS IS NOT WORKING (Possibly a object casting issue)
     deleteFriend: async (parent, { friendId }, context) => {
       if (context.user) {
         const newFriend = await User.findById(friendId);
@@ -74,13 +74,13 @@ const resolvers = {
         if (result == "") {
           console.log("no matching ID in friends list, adding friend. \n");
           const newUser = await User.findByIdAndUpdate(
-            { _id: context.user._id },
-            {
-              $push: { friends: { _id: newFriend.id } },
-            },
-            { new: true }
-          );
-        } else {
+          { _id: context.user._id },
+          {
+            $push: { friends: { _id: newFriend.id } },
+          },
+          { new: true }
+        );
+} else {
           throw new Error("Cannot add same friends twice");
         }
 
@@ -88,6 +88,28 @@ const resolvers = {
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+    addUpvote: async (_, { universityId }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('Authentication required to upvote a university');
+      }
+      
+      const university = await University.findById(universityId);
+      if (!university) {
+        throw new Error('University not found');
+      }
+
+      const hasUpvoted = university.upvotes.some((upvote) => upvote.userId === context.user._id);
+      if (hasUpvoted) {
+        throw new Error('You have already upvoted this university');
+      }
+
+      const newUpvote = new Upvote({
+        userId: context.user._id,
+      });
+      university.upvotes.push(newUpvote);
+      await university.save();
+      return university;
     },
   },
 };

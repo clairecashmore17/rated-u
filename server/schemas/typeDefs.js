@@ -20,7 +20,7 @@ const typeDefs = gql`
   }
   type Upvote {
     _id: ID
-    userId: ID
+    username: ID
   }
   type Comment {
     _id: ID
@@ -41,7 +41,9 @@ const typeDefs = gql`
   type Query {
     user: User
     users: [User]
-    majors: Major
+    majors: [Major]
+    universities: [University]
+    university: University
   }
   type Mutation {
     addUser(
@@ -58,6 +60,8 @@ const typeDefs = gql`
 
     addFriend(friendId: ID!): User
     deleteFriend(friendId: ID!): User
+
+    addUpvote(universityId: ID!): University
   }
 `;
 

@@ -1,7 +1,8 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models");
+const { User, University } = require("../models");
 const { Major } = require("../models");
 const { signToken } = require("../utils/auth");
+const { findById } = require("../models/User");
 
 const resolvers = {
   Query: {
@@ -16,10 +17,19 @@ const resolvers = {
     },
     users: async () => {
       return User.find();
-        },
+    },
     majors: async () => {
-        return Major.find();
-    }
+      return Major.find();
+    },
+    universities: async () => {
+      return University.find().populate("upvotes");
+    },
+    university: async (parent, { universityName }) => {
+      const university = await University.findOne({ universityName })
+        .populate("majors")
+        .populate("upvotes");
+      return university;
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -88,6 +98,33 @@ const resolvers = {
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+    addUpvote: async (parent, { universityId }, context) => {
+      if (context.user) {
+        const university = await University.findById(universityId);
+
+        console.log(
+          `**** University updating*****${university.upvotes[0].username}`
+        );
+        console.log(context.user.username);
+        console.log(university.upvotes);
+        //Filter out if any matching IDs in friend list
+        const result = university.upvotes.filter(function (el) {
+          return el.username == context.user.username;
+        });
+        console.log("RESULT \n:" + result);
+        if (result == "") {
+          console.log("no matching username in upvote, adding upvote. \n");
+          const upvote = await University.findByIdAndUpdate(
+            { _id: universityId },
+            { $push: { upvotes: { username: context.user.username } } },
+            { new: true }
+          );
+          return University;
+        } else {
+          throw new Error("Cannot upvote same university twice");
+        }
+      }
     },
   },
 };

@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import {
+  Toolbar,
+  Box,
+  AppBar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+} from "@mui/material";
+
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+
 import AdbIcon from "@mui/icons-material/Adb";
 import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "react-router-dom";
@@ -38,7 +42,7 @@ const Navigation = () => {
   };
   return (
     <AppBar style={{ background: "#1f6150" }} position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="x2">
         <Toolbar disableGutters>
           <SchoolIcon
             sx={{
@@ -54,9 +58,11 @@ const Navigation = () => {
             href="/"
             sx={{
               mr: 2,
+              m: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
+              fontSize: "1.7vw",
               letterSpacing: ".3rem",
               color: "inherit",
               backgroundColor: "#4ba7b8",
@@ -106,9 +112,11 @@ const Navigation = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+                <Link to={`/${page}`} style={{ textDecoration: "none" }}>
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -128,7 +136,7 @@ const Navigation = () => {
               mr: 24,
               display: { xs: "flex", md: "none" },
               flexGrow: 0,
-
+              minWidth: "130px",
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -140,7 +148,7 @@ const Navigation = () => {
               textDecoration: "none",
             }}
           >
-            Rated-Filter
+            Rated-U
           </Typography>
           {/* Pages in hamburger tool for smaller views */}
           <Box
@@ -151,15 +159,26 @@ const Navigation = () => {
             }}
           >
             {pages.map((page) => (
-              <Link to={`/${page}`}>
-                {" "}
+              <Link style={{ textDecoration: "none" }} to={`/${page}`}>
                 <Button
                   key={page}
+                  variant="contained"
                   onClick={() => {
                     handleCloseNavMenu();
                     console.log("clicked " + page);
                   }}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{
+                    m: 1,
+                    mx: 3,
+                    fontSize: "1vw",
+                    backgroundColor: "#1f6150",
+                    color: "white",
+                    display: "block",
+                    ":hover": {
+                      bgcolor: "#8ee5f5",
+                      color: "black",
+                    },
+                  }}
                 >
                   {page}
                 </Button>

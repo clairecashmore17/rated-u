@@ -42,7 +42,7 @@ const Navigation = () => {
   };
   return (
     <AppBar style={{ background: "#1f6150" }} position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="x2">
         <Toolbar disableGutters>
           <SchoolIcon
             sx={{
@@ -112,7 +112,7 @@ const Navigation = () => {
               }}
             >
               {pages.map((page) => (
-                <Link to={`/${page}`}>
+                <Link to={`/${page}`} style={{ textDecoration: "none" }}>
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
@@ -136,7 +136,7 @@ const Navigation = () => {
               mr: 24,
               display: { xs: "flex", md: "none" },
               flexGrow: 0,
-
+              minWidth: "130px",
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -148,7 +148,7 @@ const Navigation = () => {
               textDecoration: "none",
             }}
           >
-            Rated-Filter
+            Rated-U
           </Typography>
           {/* Pages in hamburger tool for smaller views */}
           <Box
@@ -159,15 +159,26 @@ const Navigation = () => {
             }}
           >
             {pages.map((page) => (
-              <Link to={`/${page}`}>
-                {" "}
+              <Link style={{ textDecoration: "none" }} to={`/${page}`}>
                 <Button
                   key={page}
+                  variant="contained"
                   onClick={() => {
                     handleCloseNavMenu();
                     console.log("clicked " + page);
                   }}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{
+                    m: 1,
+                    mx: 3,
+                    fontSize: "1vw",
+                    backgroundColor: "#1f6150",
+                    color: "white",
+                    display: "block",
+                    ":hover": {
+                      bgcolor: "#8ee5f5",
+                      color: "black",
+                    },
+                  }}
                 >
                   {page}
                 </Button>

@@ -9,6 +9,12 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import ForumIcon from "@mui/icons-material/Forum";
+import SchoolIcon from "@mui/icons-material/School";
+import SmsIcon from "@mui/icons-material/Sms";
+import ReadMoreIcon from "@mui/icons-material/ReadMore";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import GroupsIcon from "@mui/icons-material/Groups";
 import "./index.css";
 
 const Home = () => {
@@ -61,16 +67,25 @@ const Home = () => {
               // mt: "7%",
             }}
           >
-            <CardMedia
+            <CardContent
               sx={{
-                height: 150,
-                backgroundPosition: "center",
-                backgroundSize: "40%",
-                backgroundColor: "#4ba7b8",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
               }}
-              image="/images/Graduation_cap.png"
-              title="grad cap"
-            />
+            >
+              <Button sx={{ color: "var(--primary)" }} disabled>
+                <SchoolIcon
+                  sx={{
+                    fontSize: "120px",
+                    backgroundColor: "var(--secondary)",
+                    p: "25px",
+                    borderRadius: "70px",
+                  }}
+                />
+              </Button>
+            </CardContent>
             <CardContent
               sx={{
                 display: "flex",
@@ -93,8 +108,7 @@ const Home = () => {
                 color="text.secondary"
                 fontSize={"2vh"}
               >
-                View comments from real students attending university. No paid
-                promotions!
+                Search for a University and see it's rating
               </Typography>
             </CardContent>
             <CardActions
@@ -107,23 +121,32 @@ const Home = () => {
           <Card
             sx={{
               maxWidth: 500,
+
               m: 5,
               borderRadius: "5%",
               boxShadow: "-10px 10px #1f6150 ",
               height: 500,
-              // mt: "7%",
             }}
           >
-            <CardMedia
+            <CardContent
               sx={{
-                height: 150,
-                backgroundPosition: "center",
-                backgroundSize: "30%",
-                backgroundColor: "#4ba7b8",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
               }}
-              image="/images/chat_bubbles.png"
-              title="grad cap"
-            />
+            >
+              <Button sx={{ color: "var(--primary)" }} disabled>
+                <ForumIcon
+                  sx={{
+                    fontSize: "120px",
+                    backgroundColor: "var(--secondary)",
+                    p: "25px",
+                    borderRadius: "70px",
+                  }}
+                />
+              </Button>
+            </CardContent>
             <CardContent
               sx={{
                 display: "flex",
@@ -145,8 +168,8 @@ const Home = () => {
                 color="text.secondary"
                 fontSize={"2vh"}
               >
-                View comments from real students attending university. No paid
-                promotions!
+                Don't trust us. Trust them! Real student feedback without fear
+                of paid promotion
               </Typography>
             </CardContent>
             <CardActions
@@ -192,7 +215,172 @@ const Home = () => {
           </div>
         </div>
         {/* Fourth Box (more info) */}
-        <div className="home-box background-mint">Box 4</div>
+        <div className="home-box background-mint flex-column">
+          <Card
+            sx={{
+              maxWidth: 300,
+              m: 5,
+              borderRadius: "5%",
+              boxShadow: "-15px 15px #1f6150 ",
+              height: 400,
+            }}
+          >
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Button sx={{ color: "var(--primary)" }}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "#1f6150",
+                  }}
+                  to={"/about"}
+                >
+                  <GroupsIcon
+                    sx={{
+                      fontSize: "120px",
+                      backgroundColor: "var(--secondary)",
+                      p: "25px",
+                      borderRadius: "70px",
+                    }}
+                  />
+                </Link>
+              </Button>
+            </CardContent>
+
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "center",
+              }}
+            >
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                fontSize={"5mm"}
+              >
+                Who are we? Find out the who, why, and how we made this site!
+              </Typography>
+            </CardContent>
+          </Card>
+          {/* Guide for rated-filter */}
+          <Card
+            sx={{
+              maxWidth: 300,
+              m: 5,
+              borderRadius: "5%",
+              boxShadow: "-15px 15px #1f6150 ",
+              height: 400,
+            }}
+          >
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Button sx={{ color: "var(--primary)" }}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "#1f6150",
+                    // backgroundColor: "#1f6150",
+                  }}
+                  to={"/contact"}
+                >
+                  <ReadMoreIcon
+                    sx={{
+                      fontSize: "120px",
+                      backgroundColor: "var(--secondary)",
+                      p: "25px",
+                      borderRadius: "70px",
+                    }}
+                  />{" "}
+                </Link>
+              </Button>
+            </CardContent>
+
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "center",
+              }}
+            >
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                fontSize={"5mm"}
+              >
+                Filtering made easy. Click here to view a guide on how to use
+                our Rated Filter
+              </Typography>
+            </CardContent>
+          </Card>
+          {/* Contact us link */}
+          <Card
+            sx={{
+              maxWidth: 300,
+              m: 5,
+              borderRadius: "5%",
+              boxShadow: "-15px 15px #1f6150 ",
+              height: 400,
+            }}
+          >
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Button sx={{ color: "var(--primary)" }}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "#1f6150",
+                    // backgroundColor: "#1f6150",
+                  }}
+                  to={"/contact"}
+                >
+                  <ConnectWithoutContactIcon
+                    sx={{
+                      fontSize: "120px",
+                      backgroundColor: "var(--secondary)",
+                      p: "25px",
+                      borderRadius: "70px",
+                    }}
+                  />
+                </Link>
+              </Button>
+            </CardContent>
+
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "center",
+              }}
+            >
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                fontSize={"5mm"}
+              >
+                Got a question? Contact us here. We would love to hear from you.
+              </Typography>
+            </CardContent>
+          </Card>
+        </div>
       </Container>
     </div>
   );

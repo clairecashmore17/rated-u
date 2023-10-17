@@ -18,6 +18,7 @@ import Navigation from "./components/Navigation";
 import RatedFilter from "./components/RatedFilter";
 import Contact from "./components/Contact";
 import About from "./components/About";
+import Footer from "./components/Footer";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -51,6 +52,7 @@ function App() {
             <Route path="/Contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
           </Routes>
+          <Footer />
         </div>
       </Router>
     </ApolloProvider>

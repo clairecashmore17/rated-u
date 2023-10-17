@@ -62,6 +62,8 @@ const typeDefs = gql`
     deleteFriend(friendId: ID!): User
 
     addUpvote(universityId: ID!): University
+    addComment(universityId: ID!, commentText: String!): University
+    deleteComment(universityId: ID!, _id: ID!): University
   }
 `;
 

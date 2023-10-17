@@ -74,6 +74,7 @@ const resolvers = {
 
         return deletedFriend.populate("friends");
       }
+      throw new AuthenticationError("You need to be logged in!");
     },
     addFriend: async (parent, { friendId }, context) => {
       if (context.user) {
@@ -125,6 +126,37 @@ const resolvers = {
           throw new Error("Cannot upvote same university twice");
         }
       }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    addComment: async (parent, { universityId, commentText }, context) => {
+      if (context.user) {
+        const updatedUniversity = await University.findOneAndUpdate(
+          { _id: universityId },
+          {
+            $push: {
+              comments: { commentText, username: context.user.username },
+            },
+          },
+          { new: true }
+        );
+        return updatedUniversity;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    deleteComment: async (parent, { universityId, _id }, context) => {
+      if (context.user) {
+        const deletedComment = await University.findOneAndUpdate(
+          { _id: universityId },
+          {
+            $pull: {
+              comments: { _id: _id },
+            },
+          },
+          { new: true }
+        );
+        return deletedComment;
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };

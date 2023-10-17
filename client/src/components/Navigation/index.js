@@ -62,7 +62,7 @@ const Navigation = () => {
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
-              fontSize: "1.7vw",
+              fontSize: "5mm",
               letterSpacing: ".3rem",
               color: "inherit",
               backgroundColor: "#4ba7b8",
@@ -170,7 +170,7 @@ const Navigation = () => {
                   sx={{
                     m: 1,
                     mx: 3,
-                    fontSize: "1vw",
+                    fontSize: "3mm",
                     backgroundColor: "#1f6150",
                     color: "white",
                     display: "block",

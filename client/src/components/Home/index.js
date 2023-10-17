@@ -14,7 +14,10 @@ import "./index.css";
 const Home = () => {
   return (
     <div>
-      <Container maxWidth="x1">
+      <Container
+        sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5" }}
+        maxWidth={false}
+      >
         {/* Top box with search bar */}
         <div className="home-box white intro">
           {/* Left content */}
@@ -32,7 +35,7 @@ const Home = () => {
             <Button
               variant="contained"
               sx={{
-                ml: "5%",
+                ml: "10%",
                 backgroundColor: "#1f6150",
                 color: "white",
                 maxWidth: "45%",
@@ -42,7 +45,7 @@ const Home = () => {
             </Button>
           </div>
           {/* Right Image (picture of students) */}
-          <div className="full-width ">
+          <div className="full-width school-img">
             <img className="fit-content ar" src="/images/intro_img.png"></img>
           </div>
         </div>
@@ -54,6 +57,8 @@ const Home = () => {
               m: 5,
               borderRadius: "5%",
               boxShadow: "-10px 10px #1f6150 ",
+              height: 500,
+              // mt: "7%",
             }}
           >
             <CardMedia
@@ -105,6 +110,8 @@ const Home = () => {
               m: 5,
               borderRadius: "5%",
               boxShadow: "-10px 10px #1f6150 ",
+              height: 500,
+              // mt: "7%",
             }}
           >
             <CardMedia
@@ -151,7 +158,39 @@ const Home = () => {
           </Card>
         </div>
         {/* Third box Rated-Filter access/info */}
-        <div className="home-box white">Box 3</div>
+        <div className="home-box white intro">
+          <img className="rated-img" src="/images/students-computer.png" />
+          <div className="flex-row rated-info">
+            <h1 className="text-primary title">Introducing Filtering</h1>
+            <p1 className="info-text">
+              Looking for the top rated Universities? What about the top
+              Technical Major at a specific University? Go to our Rated Filter
+              to narrow down your search!
+            </p1>
+
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#1f6150",
+
+                maxWidth: "50%",
+                height: "10%",
+              }}
+            >
+              <Link
+                style={{
+                  textDecoration: "none",
+                  fontSize: "4mm",
+                  fontWeight: "bold",
+                  color: "white",
+                }}
+                to={`/rated-filter`}
+              >
+                Go To Rated-Fitler{" "}
+              </Link>
+            </Button>
+          </div>
+        </div>
         {/* Fourth Box (more info) */}
         <div className="home-box background-mint">Box 4</div>
       </Container>

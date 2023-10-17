@@ -19,6 +19,7 @@ import RatedFilter from "./components/RatedFilter";
 import Contact from "./components/Contact";
 import About from "./components/About";
 import Footer from "./components/Footer";
+import Test from "./components/Test";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -51,6 +52,7 @@ function App() {
             <Route path="/rated-filter" element={<RatedFilter />} />
             <Route path="/Contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
+            <Route path="/test" element={<Test />} />
           </Routes>
           <Footer />
         </div>

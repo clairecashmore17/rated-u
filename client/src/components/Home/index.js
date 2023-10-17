@@ -185,11 +185,11 @@ const Home = () => {
           <img className="rated-img" src="/images/students-computer.png" />
           <div className="flex-row rated-info">
             <h1 className="text-primary title">Introducing Filtering</h1>
-            <p1 className="info-text">
+            <p className="info-text">
               Looking for the top rated Universities? What about the top
               Technical Major at a specific University? Go to our Rated Filter
               to narrow down your search!
-            </p1>
+            </p>
 
             <Button
               variant="contained"

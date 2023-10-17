@@ -36,11 +36,11 @@ const Footer = () => {
             <div className="footer">
               <h1 className="footer-text">Rated-U</h1>
 
-              <p1 className="footer footer-text">
+              <p className="footer footer-text">
                 @2023 by Rated-U. <br />
                 <br /> Proudly created by: <br />
                 Claire Cashmore, Natalie Jordan, and Satish Sarma
-              </p1>
+              </p>
             </div>
           </SwipeableDrawer>
         </React.Fragment>

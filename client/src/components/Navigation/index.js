@@ -14,7 +14,6 @@ import {
   Modal,
   Tab,
   Tabs,
-  TextField,
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -27,7 +26,7 @@ import Login from "../Login";
 import Signup from "../Signup";
 const Navigation = () => {
   const pages = ["Rated-Filter", "About", "Contact"];
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
+  const settings = ["Account", "Logout"];
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -46,7 +45,7 @@ const Navigation = () => {
 
   const handleCloseUserMenu = (setting) => {
     console.log(setting);
-    if (setting == "Logout") {
+    if (setting === "Logout") {
       Auth.logout();
     }
   };
@@ -98,7 +97,7 @@ const Navigation = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState(0);
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -176,7 +175,11 @@ const Navigation = () => {
                 }}
               >
                 {pages.map((page) => (
-                  <Link to={`/${page}`} style={{ textDecoration: "none" }}>
+                  <Link
+                    key={page}
+                    to={`/${page}`}
+                    style={{ textDecoration: "none" }}
+                  >
                     <MenuItem key={page} onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">{page}</Typography>
                     </MenuItem>

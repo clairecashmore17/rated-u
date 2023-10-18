@@ -1,0 +1,52 @@
+.dets > div:nth-child(even) {
+  background: var(--secondary);
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.filter-title {
+  font-size: 50px;
+  color: var(--primary);
+}
+.filter-sub-text {
+  font-size: 35px;
+  padding: 0;
+  margin-top: 0;
+}
+.filters {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: var(--primary);
+  width: 80%;
+  height: 200px;
+  border-radius: 15px;
+}
+.search-filter {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  width: 80%;
+  height: fit-content;
+}
+.chosen-filters {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1200px) {
+  .filter {
+    align-content: center;
+  }
+  .filter-title {
+    text-align: center;
+  }
+}

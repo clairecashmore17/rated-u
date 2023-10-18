@@ -3,6 +3,7 @@ const { User, University } = require("../models");
 const { Major } = require("../models");
 const { signToken } = require("../utils/auth");
 const { findById } = require("../models/User");
+const { GMU, GWU, VTECH } = require("../utils/universities");
 
 const resolvers = {
   Query: {
@@ -16,13 +17,13 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     users: async () => {
-      return User.find();
+      return User.find().populate("university");
     },
     majors: async () => {
       return Major.find();
     },
     universities: async () => {
-      return University.find().populate("upvotes");
+      return University.find().populate("upvotes").populate("majors");
     },
     university: async (parent, { universityName }) => {
       const university = await University.findOne({ universityName })
@@ -30,10 +31,45 @@ const resolvers = {
         .populate("upvotes");
       return university;
     },
+    universityByMajor: async (parent, { majorName }) => {
+      const major = await Major.findOne({ major_name: majorName });
+
+      console.log(major);
+      return await University.find({
+        majors: { $in: [major._id] },
+      }).populate("majors");
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
-      const user = await User.create(args);
+      const uni_email = args.email.split("@")[1];
+      var user_university = "";
+      // Assigning University
+      switch (uni_email) {
+        case "gwu.edu":
+          // console.log(`You go to ${GWU}`);
+          user_university = GWU;
+          break;
+        case "gmu.edu":
+          user_university = GMU;
+          // console.log(`You go to ${GMU}`);
+          break;
+        case "vt.edu":
+          user_university = VTECH;
+          // console.log(`You go to ${VTECH}`);
+          break;
+        default:
+          throw new AuthenticationError(
+            "We do not have this university in our collection!"
+          );
+          break;
+      }
+
+      const found_uni = await University.findOne({
+        university_name: user_university,
+      });
+      const user = await User.create({ ...args, university: found_uni._id });
+
       const token = signToken(user);
 
       return { token, user };

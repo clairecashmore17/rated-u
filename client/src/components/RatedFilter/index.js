@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { Button, Container } from "@mui/material";
+import UniversityList from "../UniversityList";
 import "./index.css";
 const RatedFilter = () => {
   const buttons = [
@@ -92,9 +93,8 @@ const RatedFilter = () => {
             </Button>
           </div>
         </div>
-        <div className="home-box ">This will be a result</div>
         <div className="home-box ">
-          This will be a result - need to create another component
+          <UniversityList />
         </div>
       </div>
     </Container>

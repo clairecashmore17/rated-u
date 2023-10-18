@@ -1,9 +1,9 @@
 const db = require("./connection");
-const { User, Major, University } = require("../models");
+const { User, Major, University, upvoteSchema } = require("../models");
 
 db.once("open", async () => {
   await Major.deleteMany();
-  const major = await Major.insertMany([
+  const majors = await Major.insertMany([
     {
       major_name: "Computer Engineering",
       description:
@@ -29,16 +29,53 @@ db.once("open", async () => {
     {
       university_name: "The George Washington University",
       university_image: "GWU image_url placeholder",
+      majors: [majors[0]._id, majors[1]._id],
+      upvotes: [{ username: "ClaireCashmore" }, { username: "johndoe" }],
     },
     {
       university_name: "Virginia Tech",
       university_image: "v-tech image placeholder",
+      majors: [majors[1]._id, majors[2]._id],
     },
     {
       university_name: "George Mason University",
       university_image: "GMU image_url placeholder",
+      majors: [majors[0]._id, majors[2]._id],
     },
   ]);
   console.log("University seeded");
+
+  // await User.deleteMany();
+
+  // await User.create({
+  //   username: "pam",
+  //   email: "pamela@gwu.edu",
+  //   password: "password12345",
+  // });
+
+  // await User.create({
+  //   username: "holty",
+
+  //   email: "eholt@vt.edu",
+  //   password: "password12345",
+  // });
+  // await User.create({
+  //   username: "user3",
+  //   email: "user3@vt.edu",
+  //   password: "password12345",
+  // });
+  // await User.create({
+  //   username: "user4",
+  //   email: "user4@gmu.edu",
+  //   password: "password12345",
+  // });
+
+  // await User.create({
+  //   username: "johnny",
+  //   email: "john@gwu.edu",
+  //   password: "password12345",
+  // });
+  // console.log("users seeded");
+
   process.exit();
 });

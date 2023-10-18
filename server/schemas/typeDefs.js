@@ -44,6 +44,7 @@ const typeDefs = gql`
     majors: [Major]
     universities: [University]
     university: University
+    universityByMajor(majorName: String): [University]
   }
   type Mutation {
     addUser(

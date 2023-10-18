@@ -41,3 +41,12 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+@media screen and (max-width: 1200px) {
+  .filter {
+    align-content: center;
+  }
+  .filter-title {
+    text-align: center;
+  }
+}

@@ -14,7 +14,6 @@ import {
   Modal,
   Tab,
   Tabs,
-  TextField,
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -46,7 +45,7 @@ const Navigation = () => {
 
   const handleCloseUserMenu = (setting) => {
     console.log(setting);
-    if (setting == "Logout") {
+    if (setting === "Logout") {
       Auth.logout();
     }
   };

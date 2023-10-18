@@ -14,12 +14,12 @@
 .text-primary {
   color: var(--primary);
 }
-.flex-row {
+.flex-row-home {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
-.flex-column {
+.flex-column-home {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

@@ -27,7 +27,7 @@ const Home = () => {
         {/* Top box with search bar */}
         <div className="home-box white intro">
           {/* Left content */}
-          <div className="left-content full-width flex-row">
+          <div className="left-content full-width flex-row-home">
             <h1 className="text-primary title m5">
               Find the best University for you with Rated-U
             </h1>
@@ -56,7 +56,7 @@ const Home = () => {
           </div>
         </div>
         {/* Second box (info box) */}
-        <div className="home-box background-mint flex-column">
+        <div className="home-box background-mint flex-column-home">
           <Card
             sx={{
               maxWidth: 500,
@@ -183,7 +183,7 @@ const Home = () => {
         {/* Third box Rated-Filter access/info */}
         <div className="home-box white intro">
           <img className="rated-img" src="/images/students-computer.png" />
-          <div className="flex-row rated-info">
+          <div className="flex-row-home rated-info">
             <h1 className="text-primary title">Introducing Filtering</h1>
             <p className="info-text">
               Looking for the top rated Universities? What about the top
@@ -215,7 +215,7 @@ const Home = () => {
           </div>
         </div>
         {/* Fourth Box (more info) */}
-        <div className="home-box background-mint flex-column">
+        <div className="home-box background-mint flex-column-home">
           <Card
             sx={{
               maxWidth: 300,

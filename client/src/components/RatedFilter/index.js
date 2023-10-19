@@ -1,12 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { Button, Container } from "@mui/material";
 import UniversityList from "../UniversityList";
+import { QUERY_UNIVERSITIES_BY_MAJOR } from "../../utils/queries";
 import "./index.css";
+import { useQuery } from "@apollo/client";
 const RatedFilter = () => {
+  const [filter, setFilter] = useState("");
+
+  const { loading, data } = useQuery(QUERY_UNIVERSITIES_BY_MAJOR, {
+    variables: { majorName: filter },
+  });
+
+  if (data) {
+    console.log(JSON.stringify(data.universityByMajor[0].university_name));
+  }
+  const handleFilterChoice = (event) => {
+    const { name, value } = event.target;
+    setFilter(name);
+  };
+  console.log("filter is " + filter);
+
   const buttons = [
-    "filter 1",
-    "filter 2",
+    "Electrical Engineering",
+    "Computer Engineering",
     "filter 3",
     "filter 4",
     "filter 5",
@@ -25,7 +42,6 @@ const RatedFilter = () => {
       sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5" }}
       maxWidth={false}
     >
-      {" "}
       <div className="dets">
         <div className="home-box filter">
           <h1 className="filter-title">
@@ -37,6 +53,7 @@ const RatedFilter = () => {
               <Button
                 variant="contained"
                 key={button}
+                name={button}
                 sx={{
                   backgroundColor: "var(--secondary)",
                   color: "var(--primary)",
@@ -50,6 +67,7 @@ const RatedFilter = () => {
                     color: "black",
                   },
                 }}
+                onClick={handleFilterChoice}
               >
                 {button}
               </Button>
@@ -94,7 +112,19 @@ const RatedFilter = () => {
           </div>
         </div>
         <div className="home-box ">
-          <UniversityList />
+          {data ? (
+            <>
+              {data.universityByMajor.map((university) => (
+                <UniversityList
+                  key={university._id}
+                  _id={university._id}
+                  university_name={university.university_name}
+                />
+              ))}
+            </>
+          ) : (
+            <p>loading</p>
+          )}
         </div>
       </div>
     </Container>

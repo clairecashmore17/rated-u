@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 
-function UniversityList() {
+function UniversityList(item) {
+  const { _id, university_name } = item;
   return (
     <>
-      <p>Returned Uni</p>
+      <p>{university_name}</p>
     </>
   );
 }

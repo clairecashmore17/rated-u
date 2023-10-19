@@ -5,42 +5,70 @@ import UniversityList from "../UniversityList";
 import { QUERY_UNIVERSITIES_BY_MAJOR } from "../../utils/queries";
 import "./index.css";
 import { useQuery } from "@apollo/client";
+
 const RatedFilter = () => {
-  const [filter, setFilter] = useState("");
-  const [chosen, setChosen] = useState(["clear"]);
+  const [viewHighest, setViewHighest] = useState(null);
+  const [major, setMajor] = useState("");
+  const [chosenMajor, setChosen] = useState([]);
+  const [chosenFilter, setChosenFilter] = useState([]);
   const [disabled, setDisabled] = useState(false);
-  // console.log(chosen);
+  const [disabledRate, setDisabledRate] = useState(false);
+
+  // console.log(chosenMajor);
   const { loading, data } = useQuery(QUERY_UNIVERSITIES_BY_MAJOR, {
-    variables: { majorName: filter },
+    variables: { majorName: major },
   });
 
   // if (data) {
   //   console.log(JSON.stringify(data.universityByMajor[0].university_name));
   // }
-  const handleFilterChoice = (event) => {
+  const handleMajorChoice = (event) => {
     const { name, value } = event.target;
-    setFilter(name);
+    setMajor(name);
 
     setChosen((oldArray) => [...oldArray, name]);
     setDisabled(true);
   };
 
-  const handleChosenRemove = (event) => {
+  const handleFilterChoice = (event) => {
     const { name, value } = event.target;
-    setChosen(chosen.splice(0, 1));
-    // console.log(chosen);
-    setDisabled(false);
+    console.log(name);
+    setChosenFilter((oldArray) => [...oldArray, name]);
+    setDisabledRate(true);
+    if (name === "Highest Likes") {
+      console.log("You want to view the highest liked");
+
+      setViewHighest(true);
+    } else if (name === "Lowest Likes") {
+      console.log("You want to view the lowest liked");
+      setViewHighest(false);
+    } else {
+      console.log("You dont want to view by likes");
+    }
   };
 
-  const buttons = [
+  const handleChosenRemove = (event) => {
+    setChosen(chosenMajor.splice(0, 0));
+    // console.log(chosenMajor);
+    setDisabled(false);
+  };
+  const handleFilterRemove = (event) => {
+    setChosenFilter(chosenMajor.splice(0, 0));
+    // console.log(chosenMajor);
+    setDisabledRate(false);
+    setViewHighest(null);
+  };
+
+  const major_types = [
     "Electrical Engineering",
     "Computer Engineering",
     "Cyber Security",
-    "filter 4",
-    "filter 5",
-    "filter 6",
+    "Major A",
+    "Major B",
+    "Major C",
   ];
-  const filters = [];
+  const filter_types = ["Highest Likes", "Lowest Likes"];
+
   return (
     <Container
       sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5" }}
@@ -53,36 +81,66 @@ const RatedFilter = () => {
           </h1>
           <p className="filter-sub-text">Select your filters here</p>
           <div className="filters">
-            {buttons.map((button) => (
-              <Button
-                variant="contained"
-                key={button}
-                name={button}
-                disabled={disabled}
-                sx={{
-                  backgroundColor: "var(--secondary)",
-                  color: "var(--primary)",
-                  fontWeight: "bold",
-                  height: "40px",
-                  width: "20%",
-                  p: "10px",
-                  m: "15px",
-                  ":hover": {
-                    bgcolor: "#8ee5f5",
-                    color: "black",
-                  },
-                }}
-                onClick={handleFilterChoice}
-              >
-                {button}
-              </Button>
-            ))}
+            <div className="sectioned-filters">
+              {major_types.map((major) => (
+                <Button
+                  variant="contained"
+                  key={major}
+                  name={major}
+                  disabled={disabled}
+                  sx={{
+                    backgroundColor: "var(--secondary)",
+                    color: "var(--primary)",
+                    fontWeight: "bold",
+                    fontSize: "3mm",
+                    height: "40px",
+                    minWidth: "40%",
+                    p: "10px",
+                    m: "15px",
+                    ":hover": {
+                      bgcolor: "#8ee5f5",
+                      color: "black",
+                    },
+                  }}
+                  onClick={handleMajorChoice}
+                >
+                  {major}
+                </Button>
+              ))}
+            </div>
+            <div className="sectioned-filters">
+              {filter_types.map((filter) => (
+                <Button
+                  variant="contained"
+                  key={filter}
+                  name={filter}
+                  disabled={disabledRate}
+                  sx={{
+                    backgroundColor: "var(--secondary)",
+                    color: "var(--primary)",
+                    fontWeight: "bold",
+                    fontSize: "3mm",
+                    height: "40px",
+                    minWidth: "40%",
+                    p: "10px",
+                    m: "15px",
+                    ":hover": {
+                      bgcolor: "#8ee5f5",
+                      color: "black",
+                    },
+                  }}
+                  onClick={handleFilterChoice}
+                >
+                  {filter}
+                </Button>
+              ))}
+            </div>
           </div>
           <div className="search-filter">
             <div className="chosen-filters">
-              {chosen ? (
+              {chosenMajor ? (
                 <>
-                  {chosen.map((choice) => (
+                  {chosenMajor.map((choice) => (
                     <Button
                       key={choice}
                       name={choice}
@@ -91,7 +149,7 @@ const RatedFilter = () => {
                         backgroundColor: "var(--secondary)",
                         color: "var(--primary)",
                         height: "40px",
-                        width: "15%",
+                        width: "20%",
                         fontSize: "3mm",
                         m: 1,
                         boxShadow: "-5px 5px var(--primary)",
@@ -101,6 +159,35 @@ const RatedFilter = () => {
                         },
                       }}
                       onClick={handleChosenRemove}
+                    >
+                      {choice}
+                    </Button>
+                  ))}
+                </>
+              ) : (
+                <></>
+              )}
+              {chosenFilter ? (
+                <>
+                  {chosenFilter.map((choice) => (
+                    <Button
+                      key={choice}
+                      name={choice}
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "var(--secondary)",
+                        color: "var(--primary)",
+                        height: "40px",
+                        width: "20%",
+                        fontSize: "3mm",
+                        m: 1,
+                        boxShadow: "-5px 5px var(--primary)",
+                        ":hover": {
+                          bgcolor: "#8ee5f5",
+                          color: "black",
+                        },
+                      }}
+                      onClick={handleFilterRemove}
                     >
                       {choice}
                     </Button>
@@ -119,8 +206,11 @@ const RatedFilter = () => {
                 height: "40px",
                 width: "20%",
               }}
+              onClick={() => {
+                window.location.reload();
+              }}
             >
-              Search
+              Refresh
             </Button>
           </div>
         </div>
@@ -131,6 +221,7 @@ const RatedFilter = () => {
               <div className="home-box ">
                 <UniversityList
                   key={university._id}
+                  index={university.upvoteCount}
                   _id={university._id}
                   university_name={university.university_name}
                   university_img={university.university_image}

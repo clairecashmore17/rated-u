@@ -20,7 +20,7 @@ import Contact from "./components/Contact";
 import About from "./components/About";
 import Footer from "./components/Footer";
 import Test from "./components/Test";
-
+import { FilterProvider } from "./utils/GlobalState";
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
@@ -46,15 +46,17 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <Navigation />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/rated-filter" element={<RatedFilter />} />
-            <Route path="/Contact" element={<Contact />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/test" element={<Test />} />
-          </Routes>
-          <Footer />
+          <FilterProvider>
+            <Navigation />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/rated-filter" element={<RatedFilter />} />
+              <Route path="/Contact" element={<Contact />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/test" element={<Test />} />
+            </Routes>
+            <Footer />
+          </FilterProvider>
         </div>
       </Router>
     </ApolloProvider>

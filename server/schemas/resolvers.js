@@ -32,10 +32,8 @@ const resolvers = {
       return university;
     },
     universityByMajor: async (parent, { majorName }) => {
-      console.log(majorName);
       const major = await Major.findOne({ major_name: majorName });
 
-      console.log(major);
       return await University.find({
         majors: { $in: [major._id] },
       }).populate("majors");

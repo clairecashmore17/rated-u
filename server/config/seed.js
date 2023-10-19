@@ -28,18 +28,18 @@ db.once("open", async () => {
   const university = await University.insertMany([
     {
       university_name: "The George Washington University",
-      university_image: "GWU image_url placeholder",
+      university_image: "GWU_img.png",
       majors: [majors[0]._id, majors[1]._id],
       upvotes: [{ username: "ClaireCashmore" }, { username: "johndoe" }],
     },
     {
       university_name: "Virginia Tech",
-      university_image: "v-tech image placeholder",
+      university_image: "VTECH_img.jpg",
       majors: [majors[1]._id, majors[2]._id],
     },
     {
       university_name: "George Mason University",
-      university_image: "GMU image_url placeholder",
+      university_image: "GMU_img.jpg",
       majors: [majors[0]._id, majors[2]._id],
     },
   ]);

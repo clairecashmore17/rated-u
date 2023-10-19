@@ -17,6 +17,7 @@ const typeDefs = gql`
     majors: [Major]
     comments: [Comment]
     upvotes: [Upvote]
+    upvoteCount: Int
   }
   type Upvote {
     _id: ID

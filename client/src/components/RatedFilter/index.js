@@ -1,30 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { Button, Container } from "@mui/material";
+import UniversityList from "../UniversityList";
+import { QUERY_UNIVERSITIES_BY_MAJOR } from "../../utils/queries";
 import "./index.css";
+import { useQuery } from "@apollo/client";
 const RatedFilter = () => {
+  const [filter, setFilter] = useState("");
+  const [chosen, setChosen] = useState(["clear"]);
+  const [disabled, setDisabled] = useState(false);
+  // console.log(chosen);
+  const { loading, data } = useQuery(QUERY_UNIVERSITIES_BY_MAJOR, {
+    variables: { majorName: filter },
+  });
+
+  // if (data) {
+  //   console.log(JSON.stringify(data.universityByMajor[0].university_name));
+  // }
+  const handleFilterChoice = (event) => {
+    const { name, value } = event.target;
+    setFilter(name);
+
+    setChosen((oldArray) => [...oldArray, name]);
+    setDisabled(true);
+  };
+
+  const handleChosenRemove = (event) => {
+    const { name, value } = event.target;
+    setChosen(chosen.splice(0, 1));
+    // console.log(chosen);
+    setDisabled(false);
+  };
+
   const buttons = [
-    "filter 1",
-    "filter 2",
-    "filter 3",
+    "Electrical Engineering",
+    "Computer Engineering",
+    "Cyber Security",
     "filter 4",
     "filter 5",
     "filter 6",
   ];
-  const filters = [
-    "chosen 1",
-    "chosen 2",
-    "chosen 3",
-    "chosen 4",
-    "chosen 5",
-    "chosen 6",
-  ];
+  const filters = [];
   return (
     <Container
       sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5" }}
       maxWidth={false}
     >
-      {" "}
       <div className="dets">
         <div className="home-box filter">
           <h1 className="filter-title">
@@ -36,6 +57,8 @@ const RatedFilter = () => {
               <Button
                 variant="contained"
                 key={button}
+                name={button}
+                disabled={disabled}
                 sx={{
                   backgroundColor: "var(--secondary)",
                   color: "var(--primary)",
@@ -49,6 +72,7 @@ const RatedFilter = () => {
                     color: "black",
                   },
                 }}
+                onClick={handleFilterChoice}
               >
                 {button}
               </Button>
@@ -56,27 +80,35 @@ const RatedFilter = () => {
           </div>
           <div className="search-filter">
             <div className="chosen-filters">
-              {filters.map((filter) => (
-                <Button
-                  key={filter}
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "var(--secondary)",
-                    color: "var(--primary)",
-                    height: "40px",
-                    width: "15%",
-                    fontSize: "3mm",
-                    m: 1,
-                    boxShadow: "-5px 5px var(--primary)",
-                    ":hover": {
-                      bgcolor: "#8ee5f5",
-                      color: "black",
-                    },
-                  }}
-                >
-                  {filter}
-                </Button>
-              ))}
+              {chosen ? (
+                <>
+                  {chosen.map((choice) => (
+                    <Button
+                      key={choice}
+                      name={choice}
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "var(--secondary)",
+                        color: "var(--primary)",
+                        height: "40px",
+                        width: "15%",
+                        fontSize: "3mm",
+                        m: 1,
+                        boxShadow: "-5px 5px var(--primary)",
+                        ":hover": {
+                          bgcolor: "#8ee5f5",
+                          color: "black",
+                        },
+                      }}
+                      onClick={handleChosenRemove}
+                    >
+                      {choice}
+                    </Button>
+                  ))}
+                </>
+              ) : (
+                <></>
+              )}
             </div>
 
             <Button
@@ -92,10 +124,24 @@ const RatedFilter = () => {
             </Button>
           </div>
         </div>
-        <div className="home-box ">This will be a result</div>
-        <div className="home-box ">
-          This will be a result - need to create another component
-        </div>
+
+        {data ? (
+          <>
+            {data.universityByMajor.map((university) => (
+              <div className="home-box ">
+                <UniversityList
+                  key={university._id}
+                  _id={university._id}
+                  university_name={university.university_name}
+                  university_img={university.university_image}
+                  upvotes={university.upvoteCount}
+                />
+              </div>
+            ))}
+          </>
+        ) : (
+          <p>loading</p>
+        )}
       </div>
     </Container>
   );

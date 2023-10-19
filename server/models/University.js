@@ -13,10 +13,12 @@ const universitySchema = new Schema({
     type: String,
     required: true,
   },
-  majors: {
-    type: Schema.Types.ObjectId,
-    ref: "Major",
-  },
+  majors: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Major",
+    },
+  ],
   comments: [commentSchema],
   upvotes: [upvoteSchema],
 });

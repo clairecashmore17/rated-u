@@ -36,6 +36,11 @@ db.once("open", async () => {
       university_name: "Virginia Tech",
       university_image: "VTECH_img.jpg",
       majors: [majors[1]._id, majors[2]._id],
+      upvotes: [
+        { username: "ClaireCashmore" },
+        { username: "johndoe" },
+        { username: "janesmith" },
+      ],
     },
     {
       university_name: "George Mason University",

@@ -19,13 +19,21 @@
 }
 .filters {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   background-color: var(--primary);
   width: 80%;
   height: 200px;
   border-radius: 15px;
+}
+.sectioned-filters {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  max-height: 100%;
 }
 .search-filter {
   display: flex;

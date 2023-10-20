@@ -7,7 +7,6 @@ import "./index.css";
 import { useQuery } from "@apollo/client";
 
 const RatedFilter = () => {
-  const [viewHighest, setViewHighest] = useState(true);
   const [major, setMajor] = useState("");
   const [chosenMajor, setChosen] = useState([]);
   const [chosenFilter, setChosenFilter] = useState([]);
@@ -22,57 +21,76 @@ const RatedFilter = () => {
   if (data) {
     console.log(JSON.stringify(data.universityByMajor));
   }
+
+  // Handle when a major is chosen
   const handleMajorChoice = (event) => {
     const { name, value } = event.target;
+    // pass this into our query
     setMajor(name);
-
+    // Add to chosen item array
     setChosen((oldArray) => [...oldArray, name]);
+    // Disable this section (only want to choose one major to search by)
     setDisabled(true);
+    // allow user to view by rating
     setDisabledRate(false);
   };
 
+  // Handle the rating filters
   const handleFilterChoice = (event) => {
     const { name, value } = event.target;
-    // console.log(name);
+    // adding filter to array of chosen items
     setChosenFilter((oldArray) => [...oldArray, name]);
+
+    // Disable these filters (can only choose one at a time)
     setDisabledRate(true);
 
-    if (name === "Highest Likes") {
-      setViewHighest(true);
-      console.log("You want to view the " + viewHighest);
-    } else if (name === "Lowest Likes") {
-      // setViewHighest(false);
-    } else {
-      console.log("You dont want to view by likes");
-    }
+    // Creating an temp array of our requested universities by major data.
     const sortData = [...data.universityByMajor];
-    const sortedData = sortData.sort((a, b) => {
-      console.log(a);
-      if (viewHighest) {
-        console.log("sort");
-        return b.upvoteCount - a.upvoteCount;
-      } else {
-        return a.upvoteCount - b.upvoteCount;
-      }
-    });
-    console.log("set data");
-    setOrderedData(sortedData);
-    console.log(`DATA: ${JSON.stringify(sortedData)}`);
+
+    // Go through all filter choices
+    switch (name) {
+      case "Highest Likes":
+        // Sorting data on highest vote.
+        const sortHighLow = sortData.sort((a, b) => {
+          console.log(a);
+
+          return b.upvoteCount - a.upvoteCount;
+        });
+
+        setOrderedData(sortHighLow);
+
+        break;
+      case "Lowest Likes":
+        // Sorting data on lowest vote.
+        const sortLowHigh = sortData.sort((a, b) => {
+          console.log(a);
+
+          return a.upvoteCount - b.upvoteCount;
+        });
+
+        setOrderedData(sortLowHigh);
+
+        break;
+      default:
+        break;
+    }
   };
 
+  // Remove the chosen major items if a user clicks on them
   const handleChosenRemove = (event) => {
     setChosen(chosenMajor.splice(0, 0));
-    // console.log(chosenMajor);
+
     setDisabled(false);
     setDisabledRate(true);
   };
+  // Remove filter if user clicks
   const handleFilterRemove = (event) => {
     setChosenFilter(chosenMajor.splice(0, 0));
-    // console.log(chosenMajor);
+
     setDisabledRate(false);
-    // setViewHighest(false);
   };
 
+  // Our db's majors types (can pull from query soon)
   const major_types = [
     "Electrical Engineering",
     "Computer Engineering",
@@ -81,6 +99,8 @@ const RatedFilter = () => {
     "Major B",
     "Major C",
   ];
+
+  // Filter types we provide
   const filter_types = ["Highest Likes", "Lowest Likes"];
 
   return (
@@ -261,7 +281,7 @@ const RatedFilter = () => {
                 ))}
               </>
             ) : (
-              <p>loading</p>
+              <p>loading Need to spruce this up soon</p>
             )}
           </>
         )}

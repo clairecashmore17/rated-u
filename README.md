@@ -17,7 +17,7 @@
 
 ## About the Project
 
-![HomeScreenShot](./public/rated-u-homepage.jpg)<br />
+![HomeScreenShot](./public/rated-u-home.jpg)<br />
 
 <!-- [Deployment](https://clairecashmore17.github.io/claire-cashmore-portfolio/) -->
 

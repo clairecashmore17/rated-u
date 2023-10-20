@@ -7,56 +7,70 @@ import "./index.css";
 import { useQuery } from "@apollo/client";
 
 const RatedFilter = () => {
-  const [viewHighest, setViewHighest] = useState(null);
+  const [viewHighest, setViewHighest] = useState(true);
   const [major, setMajor] = useState("");
   const [chosenMajor, setChosen] = useState([]);
   const [chosenFilter, setChosenFilter] = useState([]);
   const [disabled, setDisabled] = useState(false);
-  const [disabledRate, setDisabledRate] = useState(false);
-
+  const [disabledRate, setDisabledRate] = useState(true);
+  const [orderedData, setOrderedData] = useState();
   // console.log(chosenMajor);
   const { loading, data } = useQuery(QUERY_UNIVERSITIES_BY_MAJOR, {
     variables: { majorName: major },
   });
 
-  // if (data) {
-  //   console.log(JSON.stringify(data.universityByMajor[0].university_name));
-  // }
+  if (data) {
+    console.log(JSON.stringify(data.universityByMajor));
+  }
   const handleMajorChoice = (event) => {
     const { name, value } = event.target;
     setMajor(name);
 
     setChosen((oldArray) => [...oldArray, name]);
     setDisabled(true);
+    setDisabledRate(false);
   };
 
   const handleFilterChoice = (event) => {
     const { name, value } = event.target;
-    console.log(name);
+    // console.log(name);
     setChosenFilter((oldArray) => [...oldArray, name]);
     setDisabledRate(true);
-    if (name === "Highest Likes") {
-      console.log("You want to view the highest liked");
 
+    if (name === "Highest Likes") {
       setViewHighest(true);
+      console.log("You want to view the " + viewHighest);
     } else if (name === "Lowest Likes") {
-      console.log("You want to view the lowest liked");
-      setViewHighest(false);
+      // setViewHighest(false);
     } else {
       console.log("You dont want to view by likes");
     }
+    const sortData = [...data.universityByMajor];
+    const sortedData = sortData.sort((a, b) => {
+      console.log(a);
+      if (viewHighest) {
+        console.log("sort");
+        return b.upvoteCount - a.upvoteCount;
+      } else {
+        return a.upvoteCount - b.upvoteCount;
+      }
+    });
+    console.log("set data");
+    setOrderedData(sortedData);
+    console.log(`DATA: ${JSON.stringify(sortedData)}`);
   };
 
   const handleChosenRemove = (event) => {
     setChosen(chosenMajor.splice(0, 0));
     // console.log(chosenMajor);
     setDisabled(false);
+    setDisabledRate(true);
   };
   const handleFilterRemove = (event) => {
     setChosenFilter(chosenMajor.splice(0, 0));
     // console.log(chosenMajor);
     setDisabledRate(false);
-    setViewHighest(null);
+    // setViewHighest(false);
   };
 
   const major_types = [
@@ -214,10 +228,9 @@ const RatedFilter = () => {
             </Button>
           </div>
         </div>
-
-        {data ? (
+        {orderedData ? (
           <>
-            {data.universityByMajor.map((university) => (
+            {orderedData.map((university) => (
               <div className="home-box ">
                 <UniversityList
                   key={university._id}
@@ -231,7 +244,26 @@ const RatedFilter = () => {
             ))}
           </>
         ) : (
-          <p>loading</p>
+          <>
+            {data ? (
+              <>
+                {data.universityByMajor.map((university) => (
+                  <div className="home-box ">
+                    <UniversityList
+                      key={university._id}
+                      index={university.upvoteCount}
+                      _id={university._id}
+                      university_name={university.university_name}
+                      university_img={university.university_image}
+                      upvotes={university.upvoteCount}
+                    />
+                  </div>
+                ))}
+              </>
+            ) : (
+              <p>loading</p>
+            )}
+          </>
         )}
       </div>
     </Container>

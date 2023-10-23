@@ -15,12 +15,13 @@ function UniversityList(item) {
     <div className="uni-container">
       <Card
         sx={{
-          minWidth: 300,
-          maxWidth: 300,
+          minWidth: 500,
+          maxWidth: 500,
           m: 5,
           borderRadius: "5%",
           boxShadow: "-15px 15px #1f6150 ",
-          height: 300,
+          height: 400,
+          maxHeight: 500,
           // mt: "7%",
         }}
       >
@@ -32,7 +33,7 @@ function UniversityList(item) {
       </Card>
       <Card
         sx={{
-          minWidth: 300,
+          minWidth: 500,
           m: 5,
           borderRadius: "5%",
           boxShadow: "-15px 15px #1f6150 ",

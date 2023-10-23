@@ -25,6 +25,7 @@
   /* flex-wrap: wrap; */
   background-color: var(--primary);
   width: 80%;
+
   height: 200px;
   border-radius: 15px;
 }
@@ -56,5 +57,17 @@
   }
   .filter-title {
     text-align: center;
+  }
+  .filters {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: 500px;
+  }
+  .sectioned-filters {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }

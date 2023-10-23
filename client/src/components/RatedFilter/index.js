@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
-import { Button, Container } from "@mui/material";
+import {
+  Button,
+  Container,
+  CardContent,
+  Typography,
+  CardActions,
+} from "@mui/material";
 import UniversityList from "../UniversityList";
 import { QUERY_UNIVERSITIES_BY_MAJOR } from "../../utils/queries";
 import "./index.css";
@@ -128,7 +134,7 @@ const RatedFilter = () => {
                     fontWeight: "bold",
                     fontSize: "3mm",
                     height: "40px",
-                    minWidth: "40%",
+                    width: "200px",
                     p: "10px",
                     m: "15px",
                     ":hover": {
@@ -251,7 +257,7 @@ const RatedFilter = () => {
         {orderedData ? (
           <>
             {orderedData.map((university) => (
-              <div className="home-box ">
+              <div className="home-box">
                 <UniversityList
                   key={university._id}
                   index={university.upvoteCount}
@@ -268,7 +274,7 @@ const RatedFilter = () => {
             {data ? (
               <>
                 {data.universityByMajor.map((university) => (
-                  <div className="home-box ">
+                  <div className="home-box-alt center-items">
                     <UniversityList
                       key={university._id}
                       index={university.upvoteCount}
@@ -281,7 +287,30 @@ const RatedFilter = () => {
                 ))}
               </>
             ) : (
-              <p>loading Need to spruce this up soon</p>
+              <>
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    Ready to find the University for you?
+                  </Typography>
+                  <Typography variant="h5" component="div">
+                    Select a filter and view the results below
+                  </Typography>
+                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    Your results will appear here.
+                  </Typography>
+                </CardContent>
+              </>
             )}
           </>
         )}

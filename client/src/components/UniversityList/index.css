@@ -17,7 +17,7 @@
   /* margin: 0; */
   border-bottom: dotted #1f6150 3px;
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
   .uni-container {
     flex-direction: column;
     justify-content: center;

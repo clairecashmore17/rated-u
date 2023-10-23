@@ -6,6 +6,7 @@ export const QUERY_UNIVERSITIES_BY_MAJOR = gql`
       _id
       university_name
       university_image
+      description
       upvoteCount
     }
   }

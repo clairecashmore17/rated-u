@@ -10,17 +10,18 @@ import {
 } from "@mui/material";
 import "./index.css";
 function UniversityList(item) {
-  const { _id, university_name, university_img, upvotes } = item;
+  const { _id, university_name, university_img, upvotes, description } = item;
+  console.log(description);
+  console.log(university_name);
   return (
     <div className="uni-container">
       <Card
         sx={{
-          minWidth: 500,
-          maxWidth: 500,
+          width: "50%",
           m: 5,
           borderRadius: "5%",
           boxShadow: "-15px 15px #1f6150 ",
-          height: 400,
+          height: 300,
           maxHeight: 500,
           // mt: "7%",
         }}
@@ -33,7 +34,7 @@ function UniversityList(item) {
       </Card>
       <Card
         sx={{
-          minWidth: 500,
+          width: "50%",
           m: 5,
           borderRadius: "5%",
           boxShadow: "-15px 15px #1f6150 ",
@@ -44,6 +45,9 @@ function UniversityList(item) {
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {university_name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {description}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {`Number of likes: ${upvotes}`}

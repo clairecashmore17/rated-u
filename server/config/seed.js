@@ -29,12 +29,16 @@ db.once("open", async () => {
     {
       university_name: "The George Washington University",
       university_image: "GWU_img.png",
+      description:
+        "The George Washington University (GW or GWU) is a private federally chartered research university in Washington, D.C. Chartered in 1821 by the United States Congress, GW is one of six universities in the United States with a congressional charter.",
       majors: [majors[0]._id, majors[1]._id],
       upvotes: [{ username: "ClaireCashmore" }, { username: "johndoe" }],
     },
     {
       university_name: "Virginia Tech",
       university_image: "VTECH_img.jpg",
+      description:
+        "As the commonwealth's most comprehensive university and a leading research institution, Virginia Tech offers about 280 undergraduate and graduate degree programs to more than 38,000 undergraduate, graduate, and professional students across the commonwealth and manages a research portfolio of more than $556 million.",
       majors: [majors[1]._id, majors[2]._id],
       upvotes: [
         { username: "ClaireCashmore" },
@@ -45,6 +49,8 @@ db.once("open", async () => {
     {
       university_name: "George Mason University",
       university_image: "GMU_img.jpg",
+      description:
+        "George Mason University is Virginia's largest public research university. Located near Washington, D.C., Mason enrolls nearly 40,000 students from 130 countries and all 50 states.",
       majors: [majors[0]._id, majors[2]._id],
     },
   ]);

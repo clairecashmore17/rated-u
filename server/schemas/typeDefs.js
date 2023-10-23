@@ -15,6 +15,7 @@ const typeDefs = gql`
     university_name: String
     university_image: String
     majors: [Major]
+    description: String
     comments: [Comment]
     upvotes: [Upvote]
     upvoteCount: Int

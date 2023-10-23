@@ -115,7 +115,7 @@ const RatedFilter = () => {
       maxWidth={false}
     >
       <div className="dets">
-        <div className="home-box filter">
+        <div className="home-box-filter filter">
           <h1 className="filter-title">
             What are you looking for from a University?
           </h1>
@@ -134,7 +134,7 @@ const RatedFilter = () => {
                     fontWeight: "bold",
                     fontSize: "3mm",
                     height: "40px",
-                    width: "200px",
+                    width: "auto",
                     p: "10px",
                     m: "15px",
                     ":hover": {
@@ -161,7 +161,7 @@ const RatedFilter = () => {
                     fontWeight: "bold",
                     fontSize: "3mm",
                     height: "40px",
-                    minWidth: "40%",
+                    width: "auto",
                     p: "10px",
                     m: "15px",
                     ":hover": {
@@ -257,7 +257,7 @@ const RatedFilter = () => {
         {orderedData ? (
           <>
             {orderedData.map((university) => (
-              <div className="home-box">
+              <div className="home-box-filter">
                 <UniversityList
                   key={university._id}
                   index={university.upvoteCount}
@@ -274,13 +274,14 @@ const RatedFilter = () => {
             {data ? (
               <>
                 {data.universityByMajor.map((university) => (
-                  <div className="home-box-alt center-items">
+                  <div className="home-box-filter center-items">
                     <UniversityList
                       key={university._id}
                       index={university.upvoteCount}
                       _id={university._id}
                       university_name={university.university_name}
                       university_img={university.university_image}
+                      description={university.description}
                       upvotes={university.upvoteCount}
                     />
                   </div>

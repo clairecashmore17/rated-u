@@ -41,19 +41,20 @@ const Home = () => {
             <Button
               variant="contained"
               sx={{
-                ml: "10%",
+                m: "5%",
                 backgroundColor: "#1f6150",
                 color: "white",
                 maxWidth: "45%",
+                minWidth: "200px",
               }}
             >
               Search
             </Button>
           </div>
           {/* Right Image (picture of students) */}
-          <div className="full-width school-img">
-            <img className="fit-content ar" src="/images/intro_img.png"></img>
-          </div>
+          {/* <div className="school-img"> */}
+          <img className=" school-img ar" src="/images/intro_img.png"></img>
+          {/* </div> */}
         </div>
         {/* Second box (info box) */}
         <div className="home-box background-mint flex-column-home">
@@ -63,7 +64,7 @@ const Home = () => {
               m: 5,
               borderRadius: "5%",
               boxShadow: "-10px 10px #1f6150 ",
-              height: 500,
+              height: 400,
               // mt: "7%",
             }}
           >
@@ -78,10 +79,10 @@ const Home = () => {
               <Button sx={{ color: "var(--primary)" }} disabled>
                 <SchoolIcon
                   sx={{
-                    fontSize: "120px",
+                    fontSize: "100px",
                     backgroundColor: "var(--secondary)",
-                    p: "25px",
-                    borderRadius: "70px",
+                    p: "10px",
+                    borderRadius: "50px",
                   }}
                 />
               </Button>
@@ -106,26 +107,22 @@ const Home = () => {
               <Typography
                 variant="body2"
                 color="text.secondary"
-                fontSize={"2vh"}
+                fontSize={"5mm"}
               >
                 Search for a University and see it's rating
               </Typography>
             </CardContent>
             <CardActions
               sx={{ mt: 2, display: "flex", justifyContent: "center" }}
-            >
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
-            </CardActions>
+            ></CardActions>
           </Card>
           <Card
             sx={{
               maxWidth: 500,
-
               m: 5,
               borderRadius: "5%",
               boxShadow: "-10px 10px #1f6150 ",
-              height: 500,
+              height: 400,
             }}
           >
             <CardContent
@@ -139,10 +136,10 @@ const Home = () => {
               <Button sx={{ color: "var(--primary)" }} disabled>
                 <ForumIcon
                   sx={{
-                    fontSize: "120px",
+                    fontSize: "100px",
                     backgroundColor: "var(--secondary)",
-                    p: "25px",
-                    borderRadius: "70px",
+                    p: "15px",
+                    borderRadius: "50px",
                   }}
                 />
               </Button>
@@ -166,7 +163,7 @@ const Home = () => {
               <Typography
                 variant="body2"
                 color="text.secondary"
-                fontSize={"2vh"}
+                fontSize={"5mm"}
               >
                 Don't trust us. Trust them! Real student feedback without fear
                 of paid promotion
@@ -174,10 +171,7 @@ const Home = () => {
             </CardContent>
             <CardActions
               sx={{ mt: 2, display: "flex", justifyContent: "center" }}
-            >
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
-            </CardActions>
+            ></CardActions>
           </Card>
         </div>
         {/* Third box Rated-Filter access/info */}
@@ -196,20 +190,20 @@ const Home = () => {
               sx={{
                 backgroundColor: "#1f6150",
 
-                maxWidth: "50%",
-                height: "10%",
+                maxWidth: "200px",
+                maxHeight: "100px",
               }}
             >
               <Link
                 style={{
                   textDecoration: "none",
-                  fontSize: "4mm",
+                  fontSize: "3.5mm",
                   fontWeight: "bold",
                   color: "white",
                 }}
                 to={`/rated-filter`}
               >
-                Go To Rated-Fitler{" "}
+                Go To Rated-Fitler
               </Link>
             </Button>
           </div>

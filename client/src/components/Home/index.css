@@ -1,5 +1,5 @@
 .home-box {
-  height: 650px;
+  height: 500px;
 
   width: 100%;
   /* margin: 0; */
@@ -41,10 +41,10 @@
   float: right;
 }
 .title {
-  font-size: max(575px, 30px);
+  font-size: max(45px, 30px);
 }
 .subtext {
-  font-size: 2vw;
+  font-size: max(30px, 5px);
 }
 .m5 {
   margin: 5%;
@@ -73,19 +73,25 @@
   justify-content: space-evenly;
 }
 .info-text {
-  font-size: 7mm;
+  font-size: 6mm;
   padding-bottom: 20px;
 }
+.school-img {
+  width: 1000px;
+  /* width: 100%; */
+  height: 100%;
+}
+
 .rated-img {
   /* padding: 20px; */
   height: 90%;
-  width: 50%;
+  width: 600px;
   margin: 15px;
   margin-top: 35px;
 
   box-shadow: 20px -20px var(--secondary);
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
   .home-box {
     flex-direction: column-reverse;
     justify-content: center;
@@ -102,6 +108,7 @@
     justify-content: center;
     max-height: fit-content;
     float: center;
+    width: 400px;
   }
   .home-box {
     height: fit-content;
@@ -116,24 +123,23 @@
     align-items: center;
   }
   .rated-img {
-    width: 65%;
+    width: 400px;
+    height: 400px;
+  }
+  .subtext {
+    /* font-size: max(30px, 5px); */
+    text-align: center;
   }
 }
 @media screen and (min-width: 1200px) {
-  .title {
-    font-size: 3vw;
-  }
   .intro {
     justify-content: space-evenly;
   }
+  .rated-img {
+    width: 400px;
+  }
 }
 @media screen and (max-width: 1430px) {
-  .title {
-    font-size: 4vw;
-  }
-  .subtext {
-    font-size: 2.5vw;
-  }
   .intro {
     justify-content: space-evenly;
   }
@@ -142,10 +148,7 @@
   }
 }
 @media screen and (min-width: 2100px) {
-  .title {
-    font-size: 70px;
-  }
-  .subtext {
-    font-size: 1.5vw;
-  }
+  /* .title {
+    font-size: 50px;
+  } */
 }

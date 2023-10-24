@@ -264,6 +264,7 @@ const RatedFilter = () => {
                   _id={university._id}
                   university_name={university.university_name}
                   university_img={university.university_image}
+                  description={university.description}
                   upvotes={university.upvoteCount}
                 />
               </div>

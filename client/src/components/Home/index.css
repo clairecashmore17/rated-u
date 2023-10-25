@@ -85,7 +85,7 @@
 .rated-img {
   /* padding: 20px; */
   height: 90%;
-  width: 600px;
+  width: auto;
   margin: 15px;
   margin-top: 35px;
 
@@ -123,22 +123,23 @@
     align-items: center;
   }
   .rated-img {
-    width: 400px;
-    height: 400px;
+    width: 600px;
+    height: 600px;
   }
   .subtext {
     /* font-size: max(30px, 5px); */
     text-align: center;
   }
 }
-@media screen and (min-width: 1200px) {
+/* @media screen and (min-width: 1200px) {
   .intro {
     justify-content: space-evenly;
   }
   .rated-img {
     width: 400px;
-  }
-}
+  } 
+} */
+
 @media screen and (max-width: 1430px) {
   .intro {
     justify-content: space-evenly;

@@ -1,0 +1,43 @@
+.comment-section {
+  border-top: dotted #1f6150 3px;
+}
+.comment {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.account {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.comment-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+}
+.c-text {
+  background-color: rgb(242, 240, 240);
+  height: fit-content;
+  width: 500px;
+  padding: 12px;
+  border-radius: 15px;
+  font-weight: 500;
+}
+.date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.add-comment {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+}

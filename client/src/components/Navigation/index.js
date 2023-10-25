@@ -237,7 +237,7 @@ const Navigation = () => {
                     sx={{
                       m: 1,
                       mx: 3,
-                      fontSize: "3mm",
+                      fontSize: "4mm",
                       backgroundColor: "#1f6150",
                       color: "white",
                       display: "block",
@@ -302,7 +302,7 @@ const Navigation = () => {
                   sx={{
                     m: 1,
                     mx: 3,
-                    fontSize: "3mm",
+                    fontSize: "4mm",
                     backgroundColor: "#1f6150",
                     color: "white",
                     display: "block",

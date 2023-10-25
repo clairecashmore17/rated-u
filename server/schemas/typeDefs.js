@@ -17,6 +17,7 @@ const typeDefs = gql`
     majors: [Major]
     description: String
     comments: [Comment]
+    commentCount: Int
     upvotes: [Upvote]
     upvoteCount: Int
   }
@@ -29,6 +30,7 @@ const typeDefs = gql`
     universityId: ID
     commentText: String
     username: String
+    createdAt: String
   }
   type User {
     _id: ID
@@ -45,7 +47,7 @@ const typeDefs = gql`
     users: [User]
     majors: [Major]
     universities: [University]
-    university: University
+    university(universityName: String): University
     universityByMajor(majorName: String): [University]
   }
   type Mutation {

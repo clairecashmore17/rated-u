@@ -11,3 +11,24 @@ export const QUERY_UNIVERSITIES_BY_MAJOR = gql`
     }
   }
 `;
+
+export const QUERY_UNIVERSITY = gql`
+  query University($universityName: String) {
+    university(universityName: $universityName) {
+      _id
+      university_name
+      majors {
+        major_name
+      }
+      university_image
+      upvoteCount
+      commentCount
+      comments {
+        commentText
+        username
+        createdAt
+      }
+      description
+    }
+  }
+`;

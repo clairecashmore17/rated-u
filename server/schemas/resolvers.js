@@ -26,9 +26,13 @@ const resolvers = {
       return University.find().populate("upvotes").populate("majors");
     },
     university: async (parent, { universityName }) => {
-      const university = await University.findOne({ universityName })
+      // console.log(universityName);
+      const university = await University.findOne({
+        university_name: universityName,
+      })
         .populate("majors")
-        .populate("upvotes");
+        .populate("upvotes")
+        .populate("comments");
       return university;
     },
     universityByMajor: async (parent, { majorName }) => {

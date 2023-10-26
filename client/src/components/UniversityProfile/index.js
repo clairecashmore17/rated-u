@@ -30,7 +30,7 @@ const UniversityProfile = () => {
   const [commentText, setComment] = useState("");
   const [addComment, { error }] = useMutation(ADD_COMMENT);
   const { universityName: userParam } = useParams();
-  console.log(userParam);
+  // console.log(userParam);
   const uni_name = "The George Washington University";
   const { loading, data } = useQuery(QUERY_UNIVERSITY, {
     variables: { universityName: userParam },
@@ -41,7 +41,7 @@ const UniversityProfile = () => {
   }
   const universityId = data?.university?._id;
   const handleChange = (event) => {
-    console.log("in handleChange");
+    // console.log("in handleChange");
     if (event.target.value.length <= 280) {
       setComment(event.target.value);
     }
@@ -68,7 +68,6 @@ const UniversityProfile = () => {
     <div>
       {data ? (
         <div>
-          {" "}
           <UniversityList
             key={data.university._id}
             index={data.university.upvoteCount}
@@ -77,19 +76,21 @@ const UniversityProfile = () => {
             university_img={data.university.university_image}
             description={data.university.description}
             upvotes={data.university.upvoteCount}
+            profile={true}
           />
           <div className="comment-section ">
             <h1 style={{ paddingLeft: "15px" }}>
               Comments ({data.university.commentCount})
             </h1>
-            {Auth.loggedIn() ? (
-              <div className="add-comment">
-                <TextareaAutosize
-                  id="commentText"
-                  name="commentText"
-                  label="Add a comment"
-                  onChange={handleChange}
-                />
+
+            <div className="add-comment">
+              <TextareaAutosize
+                id="commentText"
+                name="commentText"
+                label="Add a comment"
+                onChange={handleChange}
+              />
+              {Auth.loggedIn() ? (
                 <Button
                   variant="contained"
                   sx={{
@@ -107,10 +108,27 @@ const UniversityProfile = () => {
                 >
                   Comment
                 </Button>
-              </div>
-            ) : (
-              <div>Login to add a comment</div>
-            )}
+              ) : (
+                <Button
+                  variant="contained"
+                  sx={{
+                    width: "150px",
+                    margin: 2,
+                    backgroundColor: "#1f6150",
+                    color: "white",
+                    display: "block",
+                    ":hover": {
+                      bgcolor: "#8ee5f5",
+                      color: "black",
+                    },
+                  }}
+                  disabled={true}
+                  onClick={handleFormSubmit}
+                >
+                  Login to make a comment
+                </Button>
+              )}{" "}
+            </div>
             {data.university.comments != 0 ? (
               <div className="dets">
                 {data.university.comments.map((comment, index) => (

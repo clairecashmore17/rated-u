@@ -10,7 +10,18 @@ import {
 } from "@mui/material";
 import "./index.css";
 function UniversityList(item) {
-  const { _id, university_name, university_img, upvotes, description } = item;
+  const {
+    _id,
+    university_name,
+    university_img,
+    upvotes,
+    description,
+    profile,
+  } = item;
+  var height = 300;
+  if (profile) {
+    height = 500;
+  }
   // console.log(description);
   // console.log(university_name);
   return (
@@ -21,7 +32,7 @@ function UniversityList(item) {
           m: 5,
           borderRadius: "5%",
           boxShadow: "-15px 15px #1f6150 ",
-          height: 300,
+          height: { height },
           maxHeight: 500,
           // mt: "7%",
         }}
@@ -38,7 +49,7 @@ function UniversityList(item) {
           m: 5,
           borderRadius: "5%",
           boxShadow: "-15px 15px #1f6150 ",
-          height: 300,
+          height: { height },
           // mt: "7%",
         }}
       >

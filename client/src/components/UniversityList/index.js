@@ -11,10 +11,10 @@ import {
 import "./index.css";
 function UniversityList(item) {
   const { _id, university_name, university_img, upvotes, description } = item;
-  console.log(description);
-  console.log(university_name);
+  // console.log(description);
+  // console.log(university_name);
   return (
-    <div className="uni-container">
+    <div className="uni-container dets">
       <Card
         sx={{
           width: "50%",

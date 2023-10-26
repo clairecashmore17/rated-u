@@ -8,6 +8,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import "./index.css";
 function UniversityList(item) {
   const {
@@ -18,18 +19,15 @@ function UniversityList(item) {
     description,
     profile,
   } = item;
-  var height = 300;
-  if (profile) {
-    height = 500;
-  }
-  // console.log(description);
-  // console.log(university_name);
+  var height = 500;
+  var margin = 5;
+
   return (
-    <div className="uni-container dets">
+    <div className="uni-container ">
       <Card
         sx={{
           width: "50%",
-          m: 5,
+          m: margin,
           borderRadius: "5%",
           boxShadow: "-15px 15px #1f6150 ",
           height: { height },
@@ -46,24 +44,33 @@ function UniversityList(item) {
       <Card
         sx={{
           width: "50%",
-          m: 5,
+          m: margin,
           borderRadius: "5%",
           boxShadow: "-15px 15px #1f6150 ",
           height: { height },
           // mt: "7%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {university_name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {`Number of likes: ${upvotes}`}
-          </Typography>
-        </CardContent>
+        <h1 className="uni-title">{university_name}</h1>
+
+        <p className="uni-description">{description}</p>
+        <div className="likes">
+          <FavoriteSharpIcon
+            sx={{
+              p: 2,
+              fontSize: "50px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "red",
+            }}
+          />
+          <p className="numbers">{`( ${upvotes} )`}</p>
+        </div>
       </Card>
     </div>
   );

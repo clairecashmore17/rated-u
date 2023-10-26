@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <div>
       <Container
-        sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5" }}
+        sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5", mb: "40px" }}
         maxWidth={false}
       >
         {/* Top box with search bar */}

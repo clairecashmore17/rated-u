@@ -3,7 +3,7 @@ import { Box, TextField, Button } from "@mui/material";
 import "./index.css";
 import { useMutation } from "@apollo/client";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { InputAdornment, IconButton } from "@mui/material";
+import { InputAdornment, IconButton, OutlinedInput } from "@mui/material";
 import Auth from "../../utils/auth";
 import { LOGIN_USER } from "../../utils/mutations";
 
@@ -81,6 +81,7 @@ const Login = () => {
           value={userFormData.email}
           onChange={handleInputChange}
         />
+
         <TextField
           name="password"
           label="Password"

@@ -44,10 +44,11 @@ const Navigation = () => {
   };
 
   const handleCloseUserMenu = (setting) => {
-    console.log(setting);
+    // console.log(setting);
     if (setting === "Logout") {
       Auth.logout();
     }
+    setAnchorElUser(null);
   };
 
   // MODAL CODE

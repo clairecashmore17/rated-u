@@ -5,7 +5,8 @@ import { ADD_COMMENT } from "../../utils/mutations";
 import { useParams } from "react-router-dom";
 import UniversityList from "../UniversityList";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
-import { Button, TextField } from "@mui/material";
+import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
+import { Container, Button, TextField, Card, CardMedia } from "@mui/material";
 import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
 import { styled } from "@mui/system";
 import "./index.css";
@@ -37,7 +38,7 @@ const UniversityProfile = () => {
   });
   if (data) {
     const uni_data = data.university;
-    // console.log("DATE IS" + data.university.comments[0].createdAt);
+    // console.log("DATE IS" + data.university.university_image);
   }
   const universityId = data?.university?._id;
   const handleChange = (event) => {
@@ -65,19 +66,60 @@ const UniversityProfile = () => {
   };
 
   return (
-    <div>
+    <Container
+      sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5", mb: "40px" }}
+      maxWidth={false}
+    >
       {data ? (
         <div>
-          <UniversityList
-            key={data.university._id}
-            index={data.university.upvoteCount}
-            _id={data.university._id}
-            university_name={data.university.university_name}
-            university_img={data.university.university_image}
-            description={data.university.description}
-            upvotes={data.university.upvoteCount}
-            profile={true}
-          />
+          <div className="uni-container ">
+            <Card
+              sx={{
+                width: "50%",
+                m: 2,
+                borderRadius: "5%",
+                boxShadow: "-15px 15px #1f6150 ",
+                height: 500,
+              }}
+            >
+              <CardMedia
+                sx={{ height: "100%" }}
+                image={`/images/${data.university.university_image}`}
+                title={`${data.university.university_name} image`}
+              />
+            </Card>
+            <Card
+              sx={{
+                width: "50%",
+                m: 2,
+                borderRadius: "5%",
+                boxShadow: "-15px 15px #1f6150 ",
+                height: 500,
+                // mt: "7%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              <h1 className="uni-title">{data.university.university_name}</h1>
+
+              <p className="uni-description">{data.university.description}</p>
+              <div className="likes">
+                <FavoriteSharpIcon
+                  sx={{
+                    p: 2,
+                    fontSize: "50px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "red",
+                  }}
+                />
+                <p className="numbers">{`( ${data.university.upvoteCount} )`}</p>
+              </div>
+            </Card>
+          </div>
           <div className="comment-section ">
             <h1 style={{ paddingLeft: "15px" }}>
               Comments ({data.university.commentCount})
@@ -154,7 +196,7 @@ const UniversityProfile = () => {
       ) : (
         <div>loading</div>
       )}
-    </div>
+    </Container>
   );
 };
 

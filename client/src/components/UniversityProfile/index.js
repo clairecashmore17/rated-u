@@ -30,10 +30,10 @@ const UniversityProfile = () => {
   const [commentText, setComment] = useState("");
   const [addComment, { error }] = useMutation(ADD_COMMENT);
   const { universityName: userParam } = useParams();
-  // console.log(userParam);
+  console.log(userParam);
   const uni_name = "The George Washington University";
   const { loading, data } = useQuery(QUERY_UNIVERSITY, {
-    variables: { universityName: "The George Washington University" },
+    variables: { universityName: userParam },
   });
   if (data) {
     const uni_data = data.university;

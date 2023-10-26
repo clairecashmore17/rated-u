@@ -18,6 +18,12 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import "./index.css";
 
 const Home = () => {
+  const [universityName, setUniName] = useState("");
+  const handleChange = (event) => {
+    // console.log(event.target.value);
+    setUniName(event.target.value);
+  };
+
   return (
     <div>
       <Container
@@ -36,7 +42,9 @@ const Home = () => {
             </p>
             <input
               className="m5 search"
+              name="universityName"
               placeholder="Search for a university"
+              onChange={handleChange}
             ></input>
             <Button
               variant="contained"
@@ -48,7 +56,12 @@ const Home = () => {
                 minWidth: "200px",
               }}
             >
-              Search
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to={`/university-profile/${universityName}`}
+              >
+                Search
+              </Link>
             </Button>
           </div>
           {/* Right Image (picture of students) */}

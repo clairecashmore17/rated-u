@@ -18,7 +18,7 @@ import {
 
 import MenuIcon from "@mui/icons-material/Menu";
 import PropTypes from "prop-types";
-
+import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
@@ -44,10 +44,11 @@ const Navigation = () => {
   };
 
   const handleCloseUserMenu = (setting) => {
-    console.log(setting);
+    // console.log(setting);
     if (setting === "Logout") {
       Auth.logout();
     }
+    setAnchorElUser(null);
   };
 
   // MODAL CODE
@@ -258,10 +259,7 @@ const Navigation = () => {
               <Box sx={{ flexGrow: 0, padding: 2 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
+                    <AccountCircleSharpIcon sx={{ fontSize: "50px" }} />
                   </IconButton>
                 </Tooltip>
                 <Menu

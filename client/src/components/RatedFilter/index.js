@@ -111,7 +111,7 @@ const RatedFilter = () => {
 
   return (
     <Container
-      sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5" }}
+      sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5", mb: "40px" }}
       maxWidth={false}
     >
       <div className="dets">

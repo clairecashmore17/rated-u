@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import "./index.css";
 import { useMutation } from "@apollo/client";
-
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { InputAdornment, IconButton, OutlinedInput } from "@mui/material";
 import Auth from "../../utils/auth";
 import { LOGIN_USER } from "../../utils/mutations";
 
@@ -47,6 +48,13 @@ const Login = () => {
     });
   };
 
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   return (
     <div>
       <p className="head">Please provide your login credentials below:</p>
@@ -73,6 +81,7 @@ const Login = () => {
           value={userFormData.email}
           onChange={handleInputChange}
         />
+
         <TextField
           name="password"
           label="Password"
@@ -80,6 +89,19 @@ const Login = () => {
           size="small"
           value={userFormData.password}
           onChange={handleInputChange}
+          type={showPassword ? "text" : "password"}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
         />
         <Button
           variant="contained"

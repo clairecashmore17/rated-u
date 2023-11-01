@@ -3,7 +3,13 @@ import { Box, TextField, Button } from "@mui/material";
 import "./index.css";
 import { useMutation } from "@apollo/client";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { InputAdornment, IconButton, OutlinedInput } from "@mui/material";
+import {
+  InputAdornment,
+  IconButton,
+  OutlinedInput,
+  Alert,
+  Stack,
+} from "@mui/material";
 import Auth from "../../utils/auth";
 import { LOGIN_USER } from "../../utils/mutations";
 
@@ -33,6 +39,9 @@ const Login = () => {
     try {
       const { data } = await login({
         variables: { ...userFormData },
+        onError: (error) => {
+          setShowAlert(true);
+        },
       });
 
       console.log(data);
@@ -73,6 +82,20 @@ const Login = () => {
         noValidate
         autoComplete="off"
       >
+        {showAlert ? (
+          <Stack>
+            <Alert
+              severity="error"
+              // show={showAlert}
+              onClose={() => setShowAlert(false)}
+            >
+              Incorrect login information
+            </Alert>
+          </Stack>
+        ) : (
+          <></>
+        )}
+
         <TextField
           name="email"
           label="Email"
@@ -112,6 +135,7 @@ const Login = () => {
             maxHeight: "50px",
           }}
           onClick={handleFormSubmit}
+          disabled={!(userFormData.password && userFormData.email)}
         >
           Login
         </Button>

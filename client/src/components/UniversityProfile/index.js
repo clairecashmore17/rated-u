@@ -11,6 +11,8 @@ import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAuto
 import { styled } from "@mui/system";
 import "./index.css";
 import Auth from "../../utils/auth";
+import { Link } from "react-router-dom";
+
 const TextareaAutosize = styled(BaseTextareaAutosize)(
   ({ theme }) => `
   width: 100%;
@@ -42,7 +44,7 @@ const UniversityProfile = () => {
   }
   const universityId = data?.university?._id;
   const handleChange = (event) => {
-    // console.log("in handleChange");
+    // console.log(commentText);
     if (event.target.value.length <= 280) {
       setComment(event.target.value);
     }
@@ -50,6 +52,7 @@ const UniversityProfile = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
     if (data) {
       try {
         await addComment({
@@ -63,6 +66,7 @@ const UniversityProfile = () => {
         console.error(e);
       }
     }
+    setComment("");
   };
 
   return (

@@ -46,6 +46,7 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, args) => {
       const uni_email = args.email.split("@")[1];
+      console.log(uni_email);
       var user_university = "";
       // Assigning University
       switch (uni_email) {

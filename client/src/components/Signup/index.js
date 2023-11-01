@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Box, TextField, Button } from "@mui/material";
-import {useMutation} from "@apollo/client";
+import { Box, TextField, Button, Alert, Stack } from "@mui/material";
+import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
@@ -11,8 +11,10 @@ const Signup = () => {
     email: "",
     password: "",
     first_name: "",
-    last_name: ""
+    last_name: "",
   });
+
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -22,7 +24,7 @@ const Signup = () => {
     console.log(userFormData);
   };
 
-  const [addUser, {error}] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
   const formHandler = async (event) => {
     console.log(userFormData);
     event.preventDefault();
@@ -30,28 +32,39 @@ const Signup = () => {
     const form = event.currentTarget;
     // validation add here
 
-    try{
-      const {data} = await addUser({
-        variables: {...userFormData},
+    try {
+      const { data } = await addUser({
+        variables: { ...userFormData },
       });
       console.log(data);
 
       Auth.login(data.addUser.token);
-    }catch (e) {
-      console.error(e);
+    } catch (e) {
+      console.error(+e);
+      setShowAlert(true);
     }
 
-    setUserFormData({
-      username: "",
-      email: "",
-      password: "",
-      first_name: "",
-      last_name: ""
-    })
-  }
+    console.log("error" + error);
+    // setUserFormData({
+    //   username: "",
+    //   email: "",
+    //   password: "",
+    //   first_name: "",
+    //   last_name: "",
+    // });
+  };
   return (
     <div className="flex-column">
       <p className="head">Please provide your information below:</p>
+      {showAlert ? (
+        <Stack>
+          <Alert severity="error" onClose={() => setShowAlert(false)}>
+            {error.toString()}
+          </Alert>
+        </Stack>
+      ) : (
+        <></>
+      )}{" "}
       <div className="flex-row" onChange={handleInputChange}>
         <Box
           component="form"
@@ -63,7 +76,6 @@ const Signup = () => {
           }}
           noValidate
           autoComplete="off"
-          
         >
           <TextField
             id="firstName"
@@ -71,6 +83,12 @@ const Signup = () => {
             label="First Name"
             variant="outlined"
             size="small"
+            error={userFormData.first_name === ""}
+            helperText={
+              userFormData.first_name === ""
+                ? "Please provide your first name."
+                : ""
+            }
           />
           <TextField
             id="lastName"
@@ -78,8 +96,26 @@ const Signup = () => {
             label="Last Name"
             variant="outlined"
             size="small"
+            error={userFormData.last_name === ""}
+            helperText={
+              userFormData.last_name === ""
+                ? "Please provide your last name."
+                : ""
+            }
           />
-          <TextField id="email" name="email" label="Email" variant="outlined" size="small" />
+          <TextField
+            id="email"
+            name="email"
+            label="Email"
+            variant="outlined"
+            size="small"
+            error={userFormData.email === ""}
+            helperText={
+              userFormData.email === ""
+                ? "Please provide your school email."
+                : ""
+            }
+          />
         </Box>
         <Box
           component="form"
@@ -98,6 +134,12 @@ const Signup = () => {
             label="Username"
             variant="outlined"
             size="small"
+            error={userFormData.username === ""}
+            helperText={
+              userFormData.username === ""
+                ? "Please provide your username."
+                : ""
+            }
           />
           <TextField
             id="password"
@@ -105,6 +147,10 @@ const Signup = () => {
             label="Password"
             variant="outlined"
             size="small"
+            error={userFormData.password === ""}
+            helperText={
+              userFormData.password === "" ? "Please provide a password." : ""
+            }
           />
         </Box>
       </div>{" "}
@@ -117,6 +163,15 @@ const Signup = () => {
           maxHeight: "50px",
         }}
         onClick={formHandler}
+        disabled={
+          !(
+            userFormData.password &&
+            userFormData.email &&
+            userFormData.username &&
+            userFormData.first_name &&
+            userFormData.last_name
+          )
+        }
       >
         Create Account
       </Button>

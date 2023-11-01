@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
+import { Link } from "react-router-dom";
 import "./index.css";
 function UniversityList(item) {
   const {
@@ -55,7 +56,14 @@ function UniversityList(item) {
           alignItems: "center",
         }}
       >
-        <h1 className="uni-title">{university_name}</h1>
+        <h1 className="uni-title">
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            to={`/university-profile/${university_name}`}
+          >
+            {university_name}
+          </Link>
+        </h1>
 
         <p className="uni-description">{description}</p>
         <div className="likes">

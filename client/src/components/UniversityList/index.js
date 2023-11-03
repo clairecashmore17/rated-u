@@ -12,6 +12,7 @@ import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import { Link } from "react-router-dom";
 import "./index.css";
 function UniversityList(item) {
+  // Break up the passed information in item into the university parts
   const {
     _id,
     university_name,

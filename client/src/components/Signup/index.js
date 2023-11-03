@@ -6,6 +6,7 @@ import Auth from "../../utils/auth";
 
 import "./index.css";
 const Signup = () => {
+  // Set up state to hold user input into form
   const [userFormData, setUserFormData] = useState({
     username: "",
     email: "",
@@ -14,23 +15,27 @@ const Signup = () => {
     last_name: "",
   });
 
+  // Toggle validation alerts
   const [showAlert, setShowAlert] = useState(false);
 
+  // Handle text inputs into the field boxes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log(event.target);
-    console.log(`name is ${name} value is ${value}`);
+    // console.log(event.target);
+    // Set the data to the value in the text box
     setUserFormData({ ...userFormData, [name]: value });
-    console.log(userFormData);
+    // console.log(userFormData);
   };
 
+  // Mutation to add user
   const [addUser, { error }] = useMutation(ADD_USER);
+
+  // Handle the form when a user selects submit
   const formHandler = async (event) => {
-    console.log(userFormData);
+    // console.log(userFormData);
     event.preventDefault();
 
     const form = event.currentTarget;
-    // validation add here
 
     try {
       const { data } = await addUser({
@@ -45,13 +50,6 @@ const Signup = () => {
     }
 
     console.log("error" + error);
-    // setUserFormData({
-    //   username: "",
-    //   email: "",
-    //   password: "",
-    //   first_name: "",
-    //   last_name: "",
-    // });
   };
   return (
     <div className="flex-column">

@@ -30,31 +30,35 @@ const TextareaAutosize = styled(BaseTextareaAutosize)(
 );
 
 const UniversityProfile = () => {
+  // Set states to handle user inputs, mutations, and queries.
   const [commentText, setComment] = useState("");
   const [addComment, { error }] = useMutation(ADD_COMMENT);
+  // grab the string from the URL (the university name)
   const { universityName: userParam } = useParams();
-  // console.log(userParam);
-  const uni_name = "The George Washington University";
+
+  // Query the information of the university
   const { loading, data } = useQuery(QUERY_UNIVERSITY, {
     variables: { universityName: userParam },
   });
-  if (data) {
-    const uni_data = data.university;
-    // console.log("DATE IS" + data.university.university_image);
-  }
+
+  // Get the university ID to handle in the comment
   const universityId = data?.university?._id;
+
+  // Handle input from the comment text area
   const handleChange = (event) => {
-    // console.log(commentText);
+    // set comment length
     if (event.target.value.length <= 280) {
       setComment(event.target.value);
     }
   };
 
+  // handle the submit comment text
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    // if there is a queried university with data
     if (data) {
       try {
+        // Perform addComment mutation
         await addComment({
           variables: { commentText, universityId },
         });

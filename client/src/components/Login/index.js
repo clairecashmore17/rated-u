@@ -14,18 +14,22 @@ import Auth from "../../utils/auth";
 import { LOGIN_USER } from "../../utils/mutations";
 
 const Login = () => {
+  // Create state to hold form data, validation alert popup status
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
-  const [validated] = useState(false);
+
   const [showAlert, setShowAlert] = useState(false);
 
+  // Mutation to Login
   const [login] = useMutation(LOGIN_USER);
 
+  // Set the state to hold the user input
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
     // console.log(JSON.stringify(userFormData));
   };
 
+  // handle the data once login is selected
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -40,6 +44,7 @@ const Login = () => {
       const { data } = await login({
         variables: { ...userFormData },
         onError: (error) => {
+          // If error, show this popup
           setShowAlert(true);
         },
       });
@@ -57,6 +62,7 @@ const Login = () => {
     });
   };
 
+  // Hide password with dots functionality
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -64,6 +70,7 @@ const Login = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
   return (
     <div>
       <p className="head">Please provide your login credentials below:</p>

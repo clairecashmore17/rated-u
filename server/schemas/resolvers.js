@@ -144,11 +144,7 @@ const resolvers = {
       if (context.user) {
         const university = await University.findById(universityId);
 
-        console.log(
-          `**** University updating*****${university.upvotes[0].username}`
-        );
-        console.log(context.user.username);
-        console.log(university.upvotes);
+        // console.log(university.upvotes);
         //Filter out if any matching IDs in friend list
         const result = university.upvotes.filter(function (el) {
           return el.username == context.user.username;

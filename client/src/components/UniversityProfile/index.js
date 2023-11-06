@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_UNIVERSITY } from "../../utils/queries";
-import { ADD_COMMENT } from "../../utils/mutations";
+import { ADD_COMMENT, ADD_UPVOTE } from "../../utils/mutations";
 import { useParams } from "react-router-dom";
 import UniversityList from "../UniversityList";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
-import { Container, Button, TextField, Card, CardMedia } from "@mui/material";
+import {
+  Container,
+  Button,
+  TextField,
+  Card,
+  CardMedia,
+  IconButton,
+} from "@mui/material";
 import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
 import { styled } from "@mui/system";
 import "./index.css";
@@ -33,16 +40,19 @@ const UniversityProfile = () => {
   // Set states to handle user inputs, mutations, and queries.
   const [commentText, setComment] = useState("");
   const [addComment, { error }] = useMutation(ADD_COMMENT);
+  const [addUpvote, { error: praiseError }] = useMutation(ADD_UPVOTE);
   // grab the string from the URL (the university name)
   const { universityName: userParam } = useParams();
 
   // Query the information of the university
-  const { loading, data } = useQuery(QUERY_UNIVERSITY, {
+  const { loading, data, refetch } = useQuery(QUERY_UNIVERSITY, {
     variables: { universityName: userParam },
   });
 
   // Get the university ID to handle in the comment
   const universityId = data?.university?._id;
+
+  // console.log(data);
 
   // Handle input from the comment text area
   const handleChange = (event) => {
@@ -71,6 +81,21 @@ const UniversityProfile = () => {
       }
     }
     setComment("");
+  };
+
+  // Handling Upvote from user
+  const handleUpvote = async (event) => {
+    // console.log("upvote!");
+    try {
+      await addUpvote({
+        variables: { universityId },
+      });
+      await refetch(QUERY_UNIVERSITY, {
+        variables: { universityName: userParam },
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -114,16 +139,26 @@ const UniversityProfile = () => {
 
               <p className="uni-description">{data.university.description}</p>
               <div className="likes">
-                <FavoriteSharpIcon
+                <IconButton
+                  size="small"
                   sx={{
-                    p: 2,
-                    fontSize: "50px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    color: "red",
+                    m: 2,
                   }}
-                />
+                  onClick={handleUpvote}
+                  // disabled={!Auth.loggedIn}
+                >
+                  <FavoriteSharpIcon
+                    sx={{
+                      p: 2,
+                      fontSize: "50px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: "red",
+                    }}
+                  />
+                </IconButton>
+
                 <p className="numbers">{`( ${data.university.upvoteCount} )`}</p>
               </div>
             </Card>

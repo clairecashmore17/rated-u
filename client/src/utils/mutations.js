@@ -50,3 +50,11 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
+
+export const ADD_UPVOTE = gql`
+  mutation addUpvote($universityId: ID!) {
+    addUpvote(universityId: $universityId) {
+      _id
+    }
+  }
+`;

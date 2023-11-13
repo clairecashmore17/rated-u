@@ -9,32 +9,17 @@ import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import {
   Container,
   Button,
-  TextField,
   Card,
   CardMedia,
   IconButton,
+  Alert,
 } from "@mui/material";
+import Textarea from "@mui/joy/Textarea";
 import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
 import { styled } from "@mui/system";
 import "./index.css";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
-
-const TextareaAutosize = styled(BaseTextareaAutosize)(
-  ({ theme }) => `
-  width: 100%;
-  font-family: IBM Plex Sans, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 1.5;
-  padding: 8px 12px;
-  border-radius: 8px;
-  margin-left: 15px;
-  };
-
-
-`
-);
 
 const UniversityProfile = () => {
   // Set states to handle user inputs, mutations, and queries.
@@ -65,6 +50,7 @@ const UniversityProfile = () => {
   // handle the submit comment text
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
     // if there is a queried university with data
     if (data) {
       try {
@@ -169,7 +155,9 @@ const UniversityProfile = () => {
             </h1>
 
             <div className="add-comment">
-              <TextareaAutosize
+              <Textarea
+                minRows={2}
+                sx={{ width: "300px" }}
                 id="commentText"
                 name="commentText"
                 label="Add a comment"
@@ -190,6 +178,7 @@ const UniversityProfile = () => {
                     },
                   }}
                   onClick={handleFormSubmit}
+                  disabled={!commentText}
                 >
                   Comment
                 </Button>

@@ -20,19 +20,28 @@ const RatedFilter = () => {
   const [disabledRate, setDisabledRate] = useState(true);
   const [orderedData, setOrderedData] = useState();
   // console.log(chosenMajor);
-  const { loading, data } = useQuery(QUERY_UNIVERSITIES_BY_MAJOR, {
+  const { loading, refetch, data } = useQuery(QUERY_UNIVERSITIES_BY_MAJOR, {
     variables: { majorName: major },
   });
 
-  if (data) {
-    console.log(JSON.stringify(data.universityByMajor));
-  }
+  // if (data) {
+  //   console.log(JSON.stringify(data.universityByMajor));
+  // }
 
   // Handle when a major is chosen
-  const handleMajorChoice = (event) => {
+  const handleMajorChoice = async (event) => {
     const { name, value } = event.target;
     // pass this into our query
     setMajor(name);
+    console.log(`filter is ${major}`);
+    // try {
+    //   await refetch(QUERY_UNIVERSITIES_BY_MAJOR, {
+    //     variables: { majorName: major },
+    //   });
+    // } catch (e) {
+    //   console.log(e);
+    // }
+    console.log(`filter is ${major}`);
     // Add to chosen item array
     setChosen((oldArray) => [...oldArray, name]);
     // Disable this section (only want to choose one major to search by)
@@ -85,14 +94,15 @@ const RatedFilter = () => {
   // Remove the chosen major items if a user clicks on them
   const handleChosenRemove = (event) => {
     setChosen(chosenMajor.splice(0, 0));
-
-    setDisabled(false);
+    // setMajor("");
+    console.log(`filter is ${major}`);
+    // setDisabled(false);
     setDisabledRate(true);
   };
   // Remove filter if user clicks
   const handleFilterRemove = (event) => {
     setChosenFilter(chosenMajor.splice(0, 0));
-
+    // setMajor("");
     setDisabledRate(false);
   };
 

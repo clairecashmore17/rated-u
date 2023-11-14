@@ -1,0 +1,63 @@
+.Top-Box{
+    display: flex;
+    justify-content: space-between;
+}
+.Left-Info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+}
+.Info-Text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.Center-Text{
+    text-align: center;
+}
+.Title-Text{
+    color: var(--primary);
+    font-size: 35px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.Lower-Box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.Profiles{
+    display: flex;
+    justify-content: space-between;
+}
+.Profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+    padding-top: 0;
+}
+.Name{
+    padding: 0;
+    margin: 0;
+    font-size: 25px;
+}
+.Role{
+    padding: 0;
+    margin-top: 0;
+    font-style: italic;
+}
+.about-image{
+    width: 40%;
+}
+.Left-Info-Text{
+    width: 450px;
+    text-align: left;
+    font-size: 25px;
+    padding-top: 0;
+}

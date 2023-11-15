@@ -8,12 +8,13 @@ import {
   CardActions,
 } from "@mui/material";
 import UniversityList from "../UniversityList";
-import { QUERY_UNIVERSITIES_BY_MAJOR } from "../../utils/queries";
+import { QUERY_UNIVERSITIES_BY_MAJOR, QUERY_MAJORS } from "../../utils/queries";
 import "./index.css";
 import { useQuery } from "@apollo/client";
 
 const RatedFilter = () => {
   const [major, setMajor] = useState("");
+  const [majorTypes, setMajorTypes] = useState("");
   const [chosenMajor, setChosen] = useState([]);
   const [chosenFilter, setChosenFilter] = useState([]);
   const [disabled, setDisabled] = useState(false);
@@ -23,6 +24,12 @@ const RatedFilter = () => {
   const { loading, refetch, data } = useQuery(QUERY_UNIVERSITIES_BY_MAJOR, {
     variables: { majorName: major },
   });
+  const { loading: majorLoading, data: majorData } = useQuery(QUERY_MAJORS);
+  var major_types = [];
+  if (majorData) {
+    // console.log(majorData.majors);
+    major_types = majorData.majors.map(({ major_name }) => major_name);
+  }
 
   // if (data) {
   //   console.log(JSON.stringify(data.universityByMajor));
@@ -106,19 +113,17 @@ const RatedFilter = () => {
     setDisabledRate(false);
   };
 
-  // Our db's majors types (can pull from query soon)
-  const major_types = [
-    "Electrical Engineering",
-    "Computer Engineering",
-    "Cyber Security",
-    "Major A",
-    "Major B",
-    "Major C",
-  ];
-
+  // // Our db's majors types (can pull from query soon)
+  // const major_types = [
+  //   "Electrical Engineering",
+  //   "Computer Engineering",
+  //   "Cyber Security",
+  //   "Major A",
+  //   "Major B",
+  //   "Major C",
+  // ];
   // Filter types we provide
   const filter_types = ["Highest Likes", "Lowest Likes"];
-
   return (
     <Container
       sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5", mb: "40px" }}
@@ -132,31 +137,43 @@ const RatedFilter = () => {
           <p className="filter-sub-text">Select your filters here</p>
           <div className="filters">
             <div className="sectioned-filters">
-              {major_types.map((major) => (
-                <Button
-                  variant="contained"
-                  key={major}
-                  name={major}
-                  disabled={disabled}
-                  sx={{
-                    backgroundColor: "var(--secondary)",
-                    color: "var(--primary)",
-                    fontWeight: "bold",
-                    fontSize: "3mm",
-                    height: "40px",
-                    width: "auto",
-                    p: "10px",
-                    m: "15px",
-                    ":hover": {
-                      bgcolor: "#8ee5f5",
-                      color: "black",
-                    },
-                  }}
-                  onClick={handleMajorChoice}
-                >
-                  {major}
-                </Button>
-              ))}
+              {majorData ? (
+                <>
+                  {major_types ? (
+                    <>
+                      {major_types.map((major) => (
+                        <Button
+                          variant="contained"
+                          key={major}
+                          name={major}
+                          disabled={disabled}
+                          sx={{
+                            backgroundColor: "var(--secondary)",
+                            color: "var(--primary)",
+                            fontWeight: "bold",
+                            fontSize: "3mm",
+                            height: "40px",
+                            width: "auto",
+                            p: "10px",
+                            m: "15px",
+                            ":hover": {
+                              bgcolor: "#8ee5f5",
+                              color: "black",
+                            },
+                          }}
+                          onClick={handleMajorChoice}
+                        >
+                          {major}
+                        </Button>
+                      ))}
+                    </>
+                  ) : (
+                    <p>Loading</p>
+                  )}
+                </>
+              ) : (
+                <p>loading</p>
+              )}
             </div>
             <div className="sectioned-filters">
               {filter_types.map((filter) => (

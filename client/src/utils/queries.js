@@ -32,3 +32,12 @@ export const QUERY_UNIVERSITY = gql`
     }
   }
 `;
+
+export const QUERY_MAJORS = gql`
+  query Majors {
+    majors {
+      major_name
+      description
+    }
+  }
+`;

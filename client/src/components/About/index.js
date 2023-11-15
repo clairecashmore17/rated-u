@@ -8,7 +8,7 @@ const About = () => {
   return (
     <div>
       <Container
-        sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5", mb: "40px" }}
+        sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5", mb: "40px", display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%"}}
         maxWidth={false}
         >
           {/* Top box */}
@@ -32,7 +32,7 @@ const About = () => {
             <div className="Profile">
               <AccountCircleOutlinedIcon sx={{
                       p: 2,
-                      fontSize: "100px",
+                      fontSize: "150px",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
@@ -43,7 +43,7 @@ const About = () => {
             <div className="Profile">
               <AccountCircleOutlinedIcon sx={{
                       p: 2,
-                      fontSize: "100px",
+                      fontSize: "150px",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
@@ -54,7 +54,7 @@ const About = () => {
             <div className="Profile">
               <AccountCircleOutlinedIcon sx={{
                       p: 2,
-                      fontSize: "100px",
+                      fontSize: "150px",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",

@@ -45,6 +45,7 @@ const typeDefs = gql`
   type Query {
     user: User
     users: [User]
+    otherUser(username: String): User
     majors: [Major]
     universities: [University]
     university(universityName: String): University

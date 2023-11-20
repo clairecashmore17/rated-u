@@ -1,0 +1,19 @@
+.upper-profile {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 35px;
+}
+.profile-items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.profile-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.profile-title {
+  display: flex;
+  color: var(--primary);
+}

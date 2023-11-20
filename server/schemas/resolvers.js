@@ -9,7 +9,10 @@ const resolvers = {
   Query: {
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate("friends");
+        const user = await User.findById(context.user._id)
+          .select("-__v -password")
+          .populate("university")
+          .populate("friends");
 
         return user;
       }
@@ -18,6 +21,12 @@ const resolvers = {
     },
     users: async () => {
       return User.find().populate("university");
+    },
+    otherUser: async (parent, { username }) => {
+      return User.findOne({ username })
+        .select("-__v -password")
+        .populate("university")
+        .populate("friends");
     },
     majors: async () => {
       return Major.find();

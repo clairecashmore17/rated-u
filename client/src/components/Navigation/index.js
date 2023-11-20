@@ -43,11 +43,13 @@ const Navigation = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = (setting) => {
-    // console.log(setting);
-    if (setting === "Logout") {
-      Auth.logout();
-    }
+  const handleCloseUserMenu = () => {
+    // // console.log(setting);
+    // if (setting === "Logout") {
+    //   Auth.logout();
+    // } else if (setting === "Account") {
+    //   // window.location.("/profile");
+    // }
     setAnchorElUser(null);
   };
 
@@ -278,17 +280,25 @@ const Navigation = () => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  {settings.map((setting) => (
+                  <Link to={"/profile"}>
                     <MenuItem
-                      key={setting}
+                      key={"Account"}
                       onClick={() => {
-                        handleCloseUserMenu(setting);
-                        console.log("You clicked on " + setting);
+                        handleCloseUserMenu();
                       }}
                     >
-                      <Typography textAlign="center">{setting}</Typography>
+                      <Typography textAlign="center">Account</Typography>
                     </MenuItem>
-                  ))}
+                  </Link>
+                  <MenuItem
+                    key={"Logout"}
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      Auth.logout();
+                    }}
+                  >
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>
                 </Menu>
               </Box>
             ) : (

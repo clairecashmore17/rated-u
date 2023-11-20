@@ -1,5 +1,43 @@
 import { gql } from "@apollo/client";
 
+export const QUERY_USER = gql`
+  query user {
+    user {
+      _id
+      email
+      first_name
+      last_name
+      friends {
+        _id
+        username
+      }
+      university {
+        university_name
+      }
+      username
+    }
+  }
+`;
+
+export const QUERY_OTHER_USER = gql`
+  query otherUser($username: String!) {
+    otherUser(username: $username) {
+      _id
+      email
+      first_name
+      last_name
+      friends {
+        _id
+        username
+      }
+      university {
+        university_name
+      }
+      username
+    }
+  }
+`;
+
 export const QUERY_UNIVERSITIES_BY_MAJOR = gql`
   query getUniversitiesByMajor($majorName: String) {
     universityByMajor(majorName: $majorName) {

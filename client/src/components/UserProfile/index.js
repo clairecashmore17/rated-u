@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { QUERY_USER, QUERY_OTHER_USER } from "../../utils/queries";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import {
   Button,
@@ -9,6 +9,7 @@ import {
   CardContent,
   Typography,
   CardActions,
+  CardMedia,
 } from "@mui/material";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
@@ -181,7 +182,72 @@ const UserProfile = () => {
             <p>Loading</p>
           )}
         </div>
-        <div className="lower-profile">Lower Box</div>
+        {user.upvotes ? (
+          <div className="lower-profile">
+            <div className="likes-title">
+              <h1
+                style={{ fontSize: "6mm", color: "var(--primary)" }}
+              >{`${user.username}'s upvoted Universities`}</h1>
+              {user.upvotes.length > 1 ? (
+                <p
+                  style={{ fontSize: "5mm", color: "var(--primary)" }}
+                >{`(${user.upvotes.length}) likes`}</p>
+              ) : (
+                <p
+                  style={{ fontSize: "5mm", color: "var(--primary)" }}
+                >{`(${user.upvotes.length}) like`}</p>
+              )}
+            </div>
+            {user.upvotes.map((university, index) => (
+              <>
+                <div className="upvoted-uni">
+                  <Card
+                    sx={{
+                      width: "30%",
+                      m: 1,
+                      borderRadius: "5%",
+                      boxShadow: "-15px 15px #1f6150 ",
+                      height: "200px",
+                      maxHeight: 500,
+                      // mt: "7%",
+                    }}
+                  >
+                    <CardMedia
+                      sx={{ height: "100%" }}
+                      image={`/images/${university.university_image}`}
+                      title={`${university.university_name} image`}
+                    />
+                  </Card>
+                  <Card
+                    sx={{
+                      width: "50%",
+                      m: 1,
+                      borderRadius: "5%",
+                      boxShadow: "-15px 15px #1f6150 ",
+                      height: "200px",
+                      // mt: "7%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <h1 className="upvoted-uni-title">
+                      <Link
+                        style={{ textDecoration: "none", color: "white" }}
+                        to={`/university-profile/${university.university_name}`}
+                      >
+                        {university.university_name}
+                      </Link>
+                    </h1>
+                  </Card>
+                </div>
+              </>
+            ))}
+          </div>
+        ) : (
+          <h1>No upvoted universities yet.</h1>
+        )}
       </div>
     </Container>
   );

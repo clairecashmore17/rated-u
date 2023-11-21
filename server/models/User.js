@@ -38,6 +38,12 @@ const userSchema = new Schema({
       ref: "User",
     },
   ],
+  upvotes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "University",
+    },
+  ],
   password: {
     type: String,
     required: true,
@@ -59,7 +65,9 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
-
+userSchema.virtual("upvotedUniversities").get(function () {
+  return this.upvotes.length;
+});
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

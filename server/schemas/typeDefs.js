@@ -41,6 +41,7 @@ const typeDefs = gql`
     university: University
     major: Major
     friends: [User]
+    upvotes: [University]
   }
   type Query {
     user: User

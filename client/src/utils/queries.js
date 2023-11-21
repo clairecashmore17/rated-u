@@ -15,6 +15,10 @@ export const QUERY_USER = gql`
         university_name
       }
       username
+      upvotes {
+        university_name
+        university_image
+      }
     }
   }
 `;
@@ -34,6 +38,10 @@ export const QUERY_OTHER_USER = gql`
         university_name
       }
       username
+      upvotes {
+        university_name
+        university_image
+      }
     }
   }
 `;

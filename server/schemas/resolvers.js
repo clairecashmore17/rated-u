@@ -12,7 +12,8 @@ const resolvers = {
         const user = await User.findById(context.user._id)
           .select("-__v -password")
           .populate("university")
-          .populate("friends");
+          .populate("friends")
+          .populate("upvotes");
 
         return user;
       }
@@ -26,7 +27,8 @@ const resolvers = {
       return User.findOne({ username })
         .select("-__v -password")
         .populate("university")
-        .populate("friends");
+        .populate("friends")
+        .populate("upvotes");
     },
     majors: async () => {
       return Major.find();
@@ -164,6 +166,11 @@ const resolvers = {
           const upvote = await University.findByIdAndUpdate(
             { _id: universityId },
             { $push: { upvotes: { username: context.user.username } } },
+            { new: true }
+          );
+          const updatedUser = await User.findByIdAndUpdate(
+            { _id: context.user._id },
+            { $push: { upvotes: { _id: upvote._id } } },
             { new: true }
           );
           return University;

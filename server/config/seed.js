@@ -56,7 +56,7 @@ db.once("open", async () => {
   ]);
   console.log("University seeded");
 
-  // await User.deleteMany();
+  await User.deleteMany();
 
   // await User.create({
   //   username: "pam",
@@ -86,7 +86,7 @@ db.once("open", async () => {
   //   email: "john@gwu.edu",
   //   password: "password12345",
   // });
-  // console.log("users seeded");
+  console.log("users removed");
 
   process.exit();
 });

@@ -131,6 +131,9 @@ const resolvers = {
       if (context.user) {
         const newFriend = await User.findById(friendId);
         const user = await User.findById(context.user._id);
+        if (friendId === context.user._id) {
+          throw new Error("Cannot add yourself!");
+        }
         //Filter out if any matching IDs in friend list
         const result = user.friends.filter((id) => id == friendId);
         if (result == "") {

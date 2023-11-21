@@ -58,3 +58,14 @@ export const ADD_UPVOTE = gql`
     }
   }
 `;
+
+export const ADD_FRIEND = gql`
+  mutation addFriend($friendId: ID!) {
+    addFriend(friendId: $friendId) {
+      username
+      _id
+      first_name
+      last_name
+    }
+  }
+`;

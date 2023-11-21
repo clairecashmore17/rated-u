@@ -10,6 +10,8 @@ export const QUERY_USER = gql`
       friends {
         _id
         username
+        first_name
+        last_name
       }
       university {
         university_name
@@ -32,7 +34,10 @@ export const QUERY_OTHER_USER = gql`
       last_name
       friends {
         _id
+
         username
+        first_name
+        last_name
       }
       university {
         university_name

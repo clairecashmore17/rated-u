@@ -62,7 +62,7 @@ const typeDefs = gql`
       university: ID
       major: ID
     ): Auth
-
+    updateUserMajor(major_name: String!): User
     login(email: String!, password: String!): Auth
 
     addFriend(friendId: ID!): User

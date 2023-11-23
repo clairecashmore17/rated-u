@@ -7,6 +7,9 @@ export const QUERY_USER = gql`
       email
       first_name
       last_name
+      major {
+        major_name
+      }
       friends {
         _id
         username
@@ -32,6 +35,9 @@ export const QUERY_OTHER_USER = gql`
       email
       first_name
       last_name
+      major {
+        major_name
+      }
       friends {
         _id
 

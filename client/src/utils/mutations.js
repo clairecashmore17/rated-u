@@ -69,3 +69,13 @@ export const ADD_FRIEND = gql`
     }
   }
 `;
+export const UPDATE_MAJOR = gql`
+  mutation UpdateUserMajor($majorName: String!) {
+    updateUserMajor(major_name: $majorName) {
+      username
+      major {
+        major_name
+      }
+    }
+  }
+`;

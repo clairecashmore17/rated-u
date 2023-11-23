@@ -13,7 +13,8 @@ const resolvers = {
           .select("-__v -password")
           .populate("university")
           .populate("friends")
-          .populate("upvotes");
+          .populate("upvotes")
+          .populate("major");
 
         return user;
       }
@@ -28,8 +29,10 @@ const resolvers = {
         .select("-__v -password")
         .populate("university")
         .populate("friends")
-        .populate("upvotes");
+        .populate("upvotes")
+        .populate("major");
     },
+
     majors: async () => {
       return Major.find();
     },
@@ -89,6 +92,7 @@ const resolvers = {
 
       return { token, user };
     },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -105,6 +109,22 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    updateUserMajor: async (parent, { major_name }, context) => {
+      console.log("in update user");
+      if (context.user) {
+        console.log("Context exists");
+        const major = await Major.findOne({ major_name: major_name });
+        console.log(JSON.stringify(major));
+        console.log(major._id);
+        const updatedUser = User.findOneAndUpdate(
+          { _id: context.user._id },
+          { major: { _id: major._id } },
+          { new: true }
+        );
+        return updatedUser.populate("major");
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
     // THIS IS NOT WORKING (Possibly a object casting issue)
     deleteFriend: async (parent, { friendId }, context) => {

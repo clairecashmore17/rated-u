@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { QUERY_USER, QUERY_OTHER_USER } from "../../utils/queries";
-import { ADD_FRIEND } from "../../utils/mutations";
+import {
+  QUERY_USER,
+  QUERY_OTHER_USER,
+  QUERY_MAJORS,
+} from "../../utils/queries";
+import { ADD_FRIEND, UPDATE_MAJOR } from "../../utils/mutations";
 import { Navigate, useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import {
@@ -16,6 +20,10 @@ import {
   Modal,
   Box,
   List,
+  ListItem,
+  ListItemText,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
@@ -34,15 +42,24 @@ const UserProfile = () => {
       variables: { username: userParam },
     }
   );
+  const { loading: majorLoading, data: majorData } = useQuery(QUERY_MAJORS);
+  var major_types = [];
+  if (majorData) {
+    // console.log(majorData.majors);
+    major_types = majorData.majors.map(({ major_name }) => major_name);
+  }
   const [user, setUser] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState("Choose your major");
+  const openMajorMenu = Boolean(anchorEl);
   // Toggle validation alerts
   const [showAlert, setShowAlert] = useState(false);
 
   const [addFriend, { error }] = useMutation(ADD_FRIEND);
-
+  const [updateMjaor, { error: majorError }] = useMutation(UPDATE_MAJOR);
   useEffect(() => {
     setUser(data?.user || data?.otherUser || {});
     console.log(data);
@@ -73,7 +90,18 @@ const UserProfile = () => {
       </h4>
     );
   }
+  const handleClickListItem = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
+  const handleMenuItemClick = (event, index) => {
+    setSelectedIndex(index);
+    setAnchorEl(null);
+  };
+
+  const handleMajorClose = () => {
+    setAnchorEl(null);
+  };
   const style = {
     position: "absolute",
     top: "50%",
@@ -85,6 +113,7 @@ const UserProfile = () => {
     boxShadow: 24,
     p: 4,
   };
+
   return (
     <>
       <Container
@@ -221,9 +250,64 @@ const UserProfile = () => {
                       <h2>Major</h2>
                     </div>
                     <p style={{ marginLeft: "100px", fontStyle: "bold" }}>
-                      {user.major
-                        ? user.major.major_name
-                        : `Have not decalred a major.`}
+                      {user.major ? (
+                        user.major.major_name
+                      ) : (
+                        <>
+                          {" "}
+                          {userParam ? (
+                            <>{`Have not chosen a major.`}</>
+                          ) : (
+                            <>
+                              <List
+                                component="nav"
+                                aria-label="Device settings"
+                                sx={{ bgcolor: "background.paper" }}
+                              >
+                                <ListItem
+                                  button
+                                  id="lock-button"
+                                  aria-haspopup="listbox"
+                                  aria-controls="lock-menu"
+                                  aria-label="when device is locked"
+                                  aria-expanded={
+                                    openMajorMenu ? "true" : undefined
+                                  }
+                                  onClick={handleClickListItem}
+                                >
+                                  <ListItemText
+                                    primary={major_types[selectedIndex]}
+                                    secondary="click again to change major"
+                                  />
+                                </ListItem>
+                              </List>
+                              <Menu
+                                id="lock-menu"
+                                anchorEl={anchorEl}
+                                open={openMajorMenu}
+                                onClose={handleMajorClose}
+                                MenuListProps={{
+                                  "aria-labelledby": "lock-button",
+                                  role: "listbox",
+                                }}
+                              >
+                                {major_types.map((option, index) => (
+                                  <MenuItem
+                                    key={option}
+                                    disabled={index === 0}
+                                    selected={index === selectedIndex}
+                                    onClick={(event) =>
+                                      handleMenuItemClick(event, index)
+                                    }
+                                  >
+                                    {option}
+                                  </MenuItem>
+                                ))}
+                              </Menu>
+                            </>
+                          )}
+                        </>
+                      )}
                     </p>
                   </div>
                   <div className="profile-item">

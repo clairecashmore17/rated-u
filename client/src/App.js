@@ -22,6 +22,7 @@ import Footer from "./components/Footer";
 import Test from "./components/Test";
 import { FilterProvider } from "./utils/GlobalState";
 import UniversityProfile from "./components/UniversityProfile";
+import UserProfile from "./components/UserProfile";
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
@@ -54,6 +55,7 @@ function App() {
               <Route path="/rated-filter" element={<RatedFilter />} />
               <Route path="/Contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
+              <Route path="/user-profile" element={<UserProfile />} />
               <Route
                 path="/university-profile/:universityName"
                 element={<UniversityProfile />}

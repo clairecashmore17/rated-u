@@ -1,12 +1,13 @@
 .contact-row {
-    height: 1000px;
+    height: 100%;
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    border-bottom: dotted #1f6150 3px;
   }
   .contact-box {
     height: 100%;
-    width: 800px;
+    max-width: 1000;
   }
   .white {
     background-color: white;
@@ -22,7 +23,7 @@
   }
   .m5 {
     margin: 5%;
-    margin-top: 0;
+    margin-top: 1;
   }
   .subtext {
     font-size: max(30px, 5px);
@@ -30,16 +31,38 @@
   .flex-row-contact {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
   }
   .full-width {
     width: 100%;
   }
   .half-width {
-    width: 50%
+    width: 50%;
+    align-items: left;
   }
   .ar {
     float: right;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup {
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
   }
 
   @media screen and (max-width: 1000px) {

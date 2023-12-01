@@ -92,11 +92,13 @@ const UserProfile = () => {
   }
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
+    console.log(anchorEl);
   };
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setAnchorEl(null);
+    console.log(event.currentTarget.value);
   };
 
   const handleMajorClose = () => {
@@ -277,7 +279,7 @@ const UserProfile = () => {
                                 >
                                   <ListItemText
                                     primary={major_types[selectedIndex]}
-                                    secondary="click again to change major"
+                                    secondary="Click to select major"
                                   />
                                 </ListItem>
                               </List>

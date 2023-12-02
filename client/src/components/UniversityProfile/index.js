@@ -185,6 +185,15 @@ const UniversityProfile = () => {
                 id="commentText"
                 name="commentText"
                 label="Add a comment"
+                value={commentText}
+                style={{
+                  // margin: "10px",
+                  border:
+                    commentText === "" ? "red 2px solid" : "black 2px solid",
+                  height: "80px",
+                  width: "400px",
+                  padding: "10px",
+                }}
                 onChange={handleChange}
               />
               {Auth.loggedIn() ? (

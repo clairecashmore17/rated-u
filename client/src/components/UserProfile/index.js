@@ -1,25 +1,41 @@
-import { Container } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import { Navigate, useParams, Link } from "react-router-dom";
-import {QUERY_USER, QUERY_OTHER_USER, QUERY_MAJORS} from "../../utils/queries";
+import React, { useEffect, useState } from "react";
+import {
+  QUERY_USER,
+  QUERY_OTHER_USER,
+  QUERY_MAJORS,
+} from "../../utils/queries";
 import { ADD_FRIEND, UPDATE_MAJOR } from "../../utils/mutations";
+import { Navigate, useParams, Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import {
   Button,
+  Container,
   Card,
-  CardActions,
   CardContent,
-  CardMedia,
   Typography,
+  CardActions,
+  CardMedia,
+  Alert,
+  Stack,
+  Modal,
   Box,
-  TextField,
-  Grid
+  List,
+  ListItem,
+  ListItemText,
+  Menu,
+  MenuItem,
 } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import SchoolIcon from "@mui/icons-material/School";
+import PeopleIcon from "@mui/icons-material/People";
 import "./index.css";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import FriendList from "../FriendList";
+import AddIcon from '@mui/icons-material/Add';
 
 const UserProfile = () => {
-
+  //getting url parameter
   const { username: userParam } = useParams();
   console.log(userParam);
   const { loading, data, refetch } = useQuery(
@@ -46,7 +62,6 @@ const UserProfile = () => {
 
   const [addFriend, { error }] = useMutation(ADD_FRIEND);
   const [updateMjaor, { error: majorError }] = useMutation(UPDATE_MAJOR);
-  
   useEffect(() => {
     setUser(data?.user || data?.otherUser || {});
     console.log(data);
@@ -54,7 +69,7 @@ const UserProfile = () => {
 
   if (!data) {
     return <div>Loading...</div>;
-  };
+  }
 
   const handleAddFriend = async () => {
     try {
@@ -104,86 +119,41 @@ const UserProfile = () => {
   };
 
   return (
-    <div>
-      <Container
-        sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5", mb: "40px" }}
-        maxWidth={false}
-      >
-        <div className="home-box background-mint flex-column-home">
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Card
-              sx={{
-                maxWidth: 1000,
-                m: 5,
-                borderRadius: "10%",
-                boxShadow: "-16px 16px #1f6150 ",
-                height: 400,
-                // mt: "7%",
-              }}
-            >
-              <CardContent
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <AccountCircleIcon
-                  sx={{
-                    fontSize: "200px",
-                    color: "var(--primary)",
-                    p: "10px",
-                    borderRadius: "50px",
-                  }}
-                />
-                
-              </CardContent>
-              <CardContent
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  textAlign: "center",
-                }}
-              >
-                <Typography
-                  gutterBottom
-                  variant="h2"
-                  component="div"
-                  pb={"30px"}
-                  color={"#000000"}
-                >
-                  {`${user.first_name} ${user.last_name}`}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  fontSize={"5mm"}
-                >
-                  {`@${user.username}`}
-                </Typography>
-              </CardContent>
-              <CardActions
-                sx={{ mt: 2, display: "flex", justifyContent: "center" }}
-              ></CardActions>
-            </Card>
-          </div>
+    <Container
+      sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5", mb: "30px", minHeight: "100vh", display: "flex" }}
+      maxWidth={false}
+    >
+      <div>
+        <div className="home-box background-mint flex-row-user">
           <Card
             sx={{
-              maxWidth: 500,
+              maxWidth: 1000,
+              minWidth: 400,
               m: 5,
-              borderRadius: "5%",
-              boxShadow: "-10px 10px #1f6150 ",
+              borderRadius: "20%",
+              boxShadow: "-20px 20px #1f6150 ",
               height: 400,
+              mt: -30
             }}
           >
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <AccountCircleIcon
+                sx={{
+                  fontSize: "200px",
+                  color: "var(--primary)",
+                  pt: "10px",
+                  borderRadius: "50px",
+                }}
+              />
+              
+            </CardContent>
             <CardContent
               sx={{
                 display: "flex",
@@ -193,39 +163,173 @@ const UserProfile = () => {
             >
               <Typography
                 gutterBottom
-                variant="h5"
+                variant="h2"
                 component="div"
-                pb={"65px"}
-                color={"#1f6150"}
+                color={"#000000"}
+                mt={-2}
               >
-                Program details to be entered here
+                {`${user.first_name} ${user.last_name}`}
               </Typography>
               <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                pb={"65px"}
-                color={"#1f6150"}
+                variant="body2"
+                color="text.secondary"
+                fontSize={"10mm"}
+                mt={-3}
               >
-                university details to be entered here
-              </Typography>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                pb={"65px"}
-                color={"#1f6150"}
-              >
-                friends details to be entered here
+                {`@${user.username}`}
               </Typography>
             </CardContent>
             <CardActions
               sx={{ mt: 2, display: "flex", justifyContent: "center" }}
             ></CardActions>
           </Card>
+          <Card
+            sx={{
+              minWidth: 850,
+              height: 650,
+              m: 5,
+              mt: -5,
+              borderRadius: "20%",
+            }}
+          >
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                pt: 5,
+                pl: 10
+              }}
+            >
+              <LocationCityIcon
+                sx={{
+                  fontSize: "50px",
+                  color: "var(--primary)",
+                  pt: "10px",
+                  backgroundColor: "#d1d4d4",
+                  borderRadius: "30px",
+                }}
+              />
+              <h5 className="text-primary title m5">University</h5>
+            </CardContent>
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                pl: 8
+              }}
+            >
+              <Typography
+                  variant="h4"
+                  component="div"
+                  color={"#000000"}
+                  mt={-5}
+                  ml={13}
+                >
+                  The George Washington University
+                </Typography>
+            </CardContent>
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                pt: 5,
+                pl: 10
+              }}
+            >
+              <AccountBalanceIcon
+                sx={{
+                  fontSize: "50px",
+                  color: "var(--primary)",
+                  pt: "10px",
+                  backgroundColor: "#d1d4d4",
+                  borderRadius: "30px",
+                }}
+              />
+              <h5 className="text-primary title m5">Major</h5>
+            </CardContent>
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                pl: 8
+              }}
+            >
+              <Typography
+                  variant="h4"
+                  component="div"
+                  color={"#000000"}
+                  mt={-5}
+                  ml={13}
+                >
+                  Computer Engineering
+                </Typography>
+            </CardContent>
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                pt: 5,
+                pl: 10
+              }}
+            >
+              <PeopleIcon
+                sx={{
+                  fontSize: "50px",
+                  color: "var(--primary)",
+                  pt: "10px",
+                  backgroundColor: "#d1d4d4",
+                  borderRadius: "30px",
+                }}
+              />
+              <h5 className="text-primary title m5">Friends</h5>
+            </CardContent>
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                pl: 8
+              }}
+            >
+              <Button
+                onClick={toggleFriendsList}
+                variant="text"
+                type="button"
+                sx={{
+                  mt: -5,
+                  ml: 13,
+                  borderRadius: 100,
+                  color: "var(--primary)",
+                  maxWidth: "60%",
+                  minWidth: "120px",
+                  minHeight: "60px",
+                  fontSize: 35,
+                  textTransform: 'none'
+                }}
+              >
+              View Friends
+              </Button>
+            </CardContent>
+            <CardActions
+              sx={{ mt: 2, display: "flex", justifyContent: "center" }}
+            >
+
+            </CardActions>
+          </Card>
         </div>
-      </Container>
-    </div>
+        <div className="friends-section white flex-column-user">
+          <Typography
+            gutterBottom
+            variant="h3"
+            component="div"
+            color={"#000000"}
+            m={4}
+          >
+          Friends (count)
+          </Typography>  
+
+        </div>
+      </div>
+    </Container>
   );
 };
 

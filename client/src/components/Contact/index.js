@@ -1,6 +1,11 @@
 import { Container } from "@mui/material";
 import React, { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import {
   Button,
   Card,
@@ -17,6 +22,11 @@ import "./index.css";
 const Contact = () => {
 
   const [showPopup, setShowPopup] = useState(false);
+  const [rating, setRating] = useState(null);
+
+  const handleRatingChange = (event) => {
+    setRating(event.target.value);
+  };
 
   const submitForm = () => {
     // Show the popup after successful submission
@@ -26,7 +36,8 @@ const Contact = () => {
       name: '',
       email: '',
       message: '',
-    })
+    });
+    setRating(null);
   };
 
   const [formData, setFormData] = useState({
@@ -195,7 +206,7 @@ const Contact = () => {
                       >
                         Your Message
                       </Typography>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} pb={2}>
                         <TextField 
                             placeholder="Type your message here"
                             variant="outlined" 
@@ -216,7 +227,7 @@ const Contact = () => {
                                 }
                               },
                               "& .MuiInputBase-root": {
-                                height: 250,
+                                height: 150,
                                 background: "#FFFFFF",
                                 borderRadius: 10,
                                 fontSize: 22
@@ -226,6 +237,44 @@ const Contact = () => {
                               }
                             }} 
                           />
+                      </Grid>
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        color={"#000000"}
+                        p={2}
+                        pt={5}
+                        pl={4}
+                        fontSize={30}
+                      >
+                        How satisfied are you with our service?
+                      </Typography>
+                      <Grid item xs={12} pb={2} pl={0}>
+                        <FormControl component="fieldset">
+                          <RadioGroup 
+                            row
+                            value={rating}
+                            onChange={handleRatingChange}
+                          >
+                            {[1, 2, 3, 4, 5].map((value) => (
+                              <FormControlLabel
+                                key={value}
+                                value={value.toString()}
+                                control={<Radio sx={{
+                                  color: '#000000', 
+                                  '&.Mui-checked': { color: 'black' }, 
+                                  '& .MuiSvgIcon-root': {
+                                    fontSize: 35,
+                                  },
+                                  paddingLeft: '50px' 
+                                  }} />
+                                }
+                                label={<span style={{ fontSize: '25px' }}>{value.toString()}</span>}
+                              />
+                            ))}
+                          </RadioGroup>
+                        </FormControl>
                       </Grid>
                       <Grid item xs={12} pt={2}>
                         <Button

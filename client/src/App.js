@@ -55,11 +55,14 @@ function App() {
               <Route path="/rated-filter" element={<RatedFilter />} />
               <Route path="/Contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
-              <Route path="/user-profile" element={<UserProfile />} />
               <Route
                 path="/university-profile/:universityName"
                 element={<UniversityProfile />}
               />
+              <Route path="/profile">
+                <Route path=":username" element={<UserProfile />} />
+                <Route path="" element={<UserProfile />} />
+              </Route>
               <Route path="/test" element={<Test />} />
             </Routes>
             <Footer />

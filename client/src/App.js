@@ -20,6 +20,7 @@ import Contact from "./components/Contact";
 import About from "./components/About";
 import Footer from "./components/Footer";
 import Test from "./components/Test";
+import UserProfile from "./components/UserProfile";
 import { FilterProvider } from "./utils/GlobalState";
 import UniversityProfile from "./components/UniversityProfile";
 import UserProfile from "./components/UserProfile";

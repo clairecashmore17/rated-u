@@ -9,7 +9,12 @@ const resolvers = {
   Query: {
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate("friends");
+        const user = await User.findById(context.user._id)
+          .select("-__v -password")
+          .populate("university")
+          .populate("friends")
+          .populate("upvotes")
+          .populate("major");
 
         return user;
       }
@@ -19,6 +24,15 @@ const resolvers = {
     users: async () => {
       return User.find().populate("university");
     },
+    otherUser: async (parent, { username }) => {
+      return User.findOne({ username })
+        .select("-__v -password")
+        .populate("university")
+        .populate("friends")
+        .populate("upvotes")
+        .populate("major");
+    },
+
     majors: async () => {
       return Major.find();
     },
@@ -78,6 +92,7 @@ const resolvers = {
 
       return { token, user };
     },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -94,6 +109,22 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    updateUserMajor: async (parent, { major_name }, context) => {
+      console.log("in update user");
+      if (context.user) {
+        console.log("Context exists");
+        const major = await Major.findOne({ major_name: major_name });
+        console.log(JSON.stringify(major));
+        console.log(major._id);
+        const updatedUser = User.findOneAndUpdate(
+          { _id: context.user._id },
+          { major: { _id: major._id } },
+          { new: true }
+        );
+        return updatedUser.populate("major");
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
     // THIS IS NOT WORKING (Possibly a object casting issue)
     deleteFriend: async (parent, { friendId }, context) => {
@@ -120,6 +151,9 @@ const resolvers = {
       if (context.user) {
         const newFriend = await User.findById(friendId);
         const user = await User.findById(context.user._id);
+        if (friendId === context.user._id) {
+          throw new Error("Cannot add yourself!");
+        }
         //Filter out if any matching IDs in friend list
         const result = user.friends.filter((id) => id == friendId);
         if (result == "") {
@@ -155,6 +189,11 @@ const resolvers = {
           const upvote = await University.findByIdAndUpdate(
             { _id: universityId },
             { $push: { upvotes: { username: context.user.username } } },
+            { new: true }
+          );
+          const updatedUser = await User.findByIdAndUpdate(
+            { _id: context.user._id },
+            { $push: { upvotes: { _id: upvote._id } } },
             { new: true }
           );
           return University;

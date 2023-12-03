@@ -25,14 +25,12 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import LocationCityIcon from '@mui/icons-material/LocationCity';
 import SchoolIcon from "@mui/icons-material/School";
 import PeopleIcon from "@mui/icons-material/People";
 import "./index.css";
 import FriendList from "../FriendList";
-import AddIcon from '@mui/icons-material/Add';
 
 const UserProfile = () => {
   //getting url parameter
@@ -119,217 +117,335 @@ const UserProfile = () => {
   };
 
   return (
-    <Container
-      sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5", mb: "30px", minHeight: "100vh", display: "flex" }}
-      maxWidth={false}
-    >
-      <div>
-        <div className="home-box background-mint flex-row-user">
-          <Card
-            sx={{
-              maxWidth: 1000,
-              minWidth: 400,
-              m: 5,
-              borderRadius: "20%",
-              boxShadow: "-20px 20px #1f6150 ",
-              height: 400,
-              mt: -30
-            }}
-          >
-            <CardContent
-              sx={{
+    <>
+      <Container
+        sx={{ maxWidth: "1500px", backgroundColor: "#f2f5f5", mb: "40px" }}
+        maxWidth={false}
+      >
+        <div className="dets-reverse">
+          <div className="upper-profile">
+            <div
+              style={{
+                width: "40%",
+                m: 2,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <AccountCircleIcon
+              <Card
                 sx={{
-                  fontSize: "200px",
-                  color: "var(--primary)",
-                  pt: "10px",
-                  borderRadius: "50px",
+                  width: "100%",
+                  m: 3,
+                  borderRadius: "5%",
+                  boxShadow: "-15px 15px #1f6150 ",
+                  height: 350,
+                  // mt: "7%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
                 }}
-              />
-              
-            </CardContent>
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "center",
-              }}
-            >
-              <Typography
-                gutterBottom
-                variant="h2"
-                component="div"
-                color={"#000000"}
-                mt={-2}
               >
-                {`${user.first_name} ${user.last_name}`}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                fontSize={"10mm"}
-                mt={-3}
-              >
-                {`@${user.username}`}
-              </Typography>
-            </CardContent>
-            <CardActions
-              sx={{ mt: 2, display: "flex", justifyContent: "center" }}
-            ></CardActions>
-          </Card>
-          <Card
-            sx={{
-              minWidth: 850,
-              height: 650,
-              m: 5,
-              mt: -5,
-              borderRadius: "20%",
-            }}
-          >
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                pt: 5,
-                pl: 10
-              }}
-            >
-              <LocationCityIcon
-                sx={{
-                  fontSize: "50px",
-                  color: "var(--primary)",
-                  pt: "10px",
-                  backgroundColor: "#d1d4d4",
-                  borderRadius: "30px",
-                }}
-              />
-              <h5 className="text-primary title m5">University</h5>
-            </CardContent>
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                pl: 8
-              }}
-            >
-              <Typography
-                  variant="h4"
-                  component="div"
-                  color={"#000000"}
-                  mt={-5}
-                  ml={13}
+                <AccountCircleSharpIcon
+                  sx={{ fontSize: "150px", color: "var(--primary)" }}
+                />
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    textAlign: "center",
+                  }}
                 >
-                  The George Washington University
-                </Typography>
-            </CardContent>
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                pt: 5,
-                pl: 10
-              }}
-            >
-              <AccountBalanceIcon
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    pb={"30px"}
+                    color={"#1f6150"}
+                  >
+                    {`${user.first_name} ${user.last_name}`}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    fontSize={"5mm"}
+                  >
+                    {`@${user.username}`}
+                  </Typography>
+                </CardContent>
+              </Card>
+              {userParam ? (
+                <>
+                  {showAlert ? (
+                    <Stack>
+                      <Alert
+                        severity="error"
+                        onClose={() => setShowAlert(false)}
+                      >
+                        {error.toString()}
+                      </Alert>
+                    </Stack>
+                  ) : (
+                    <></>
+                  )}
+                  <Button
+                    variant="contained"
+                    onClick={handleAddFriend}
+                    disabled={showAlert}
+                  >
+                    Add friend
+                  </Button>
+                </>
+              ) : (
+                <></>
+              )}
+            </div>
+            {user.university ? (
+              <Card
                 sx={{
-                  fontSize: "50px",
-                  color: "var(--primary)",
-                  pt: "10px",
-                  backgroundColor: "#d1d4d4",
-                  borderRadius: "30px",
-                }}
-              />
-              <h5 className="text-primary title m5">Major</h5>
-            </CardContent>
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                pl: 8
-              }}
-            >
-              <Typography
-                  variant="h4"
-                  component="div"
-                  color={"#000000"}
-                  mt={-5}
-                  ml={13}
-                >
-                  Computer Engineering
-                </Typography>
-            </CardContent>
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                pt: 5,
-                pl: 10
-              }}
-            >
-              <PeopleIcon
-                sx={{
-                  fontSize: "50px",
-                  color: "var(--primary)",
-                  pt: "10px",
-                  backgroundColor: "#d1d4d4",
-                  borderRadius: "30px",
-                }}
-              />
-              <h5 className="text-primary title m5">Friends</h5>
-            </CardContent>
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                pl: 8
-              }}
-            >
-              <Button
-                onClick={toggleFriendsList}
-                variant="text"
-                type="button"
-                sx={{
-                  mt: -5,
-                  ml: 13,
-                  borderRadius: 100,
-                  color: "var(--primary)",
-                  maxWidth: "60%",
-                  minWidth: "120px",
-                  minHeight: "60px",
-                  fontSize: 35,
-                  textTransform: 'none'
+                  width: "50%",
+                  m: 2,
+                  p: 2,
+                  borderRadius: "5%",
+                  boxShadow: "-15px 15px #1f6150 ",
+                  height: 400,
+                  // mt: "7%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
                 }}
               >
-              View Friends
-              </Button>
-            </CardContent>
-            <CardActions
-              sx={{ mt: 2, display: "flex", justifyContent: "center" }}
-            >
-
-            </CardActions>
-          </Card>
+                <div className="profile-items">
+                  <div className="profile-item">
+                    <div className="profile-title">
+                      <SchoolIcon
+                        sx={{
+                          fontSize: "30px",
+                          color: "var(--primary)",
+                          m: "10px",
+                          backgroundColor: "var(--secondary)",
+                          p: 1,
+                          borderRadius: 8,
+                        }}
+                      />
+                      <h2>University</h2>
+                    </div>
+                    <p style={{ marginLeft: "100px", fontStyle: "bold" }}>
+                      {user.university.university_name}
+                    </p>
+                  </div>
+                  <div className="profile-item">
+                    <div className="profile-title">
+                      <AccountBalanceIcon
+                        sx={{
+                          fontSize: "30px",
+                          color: "var(--primary)",
+                          m: "10px",
+                          backgroundColor: "var(--secondary)",
+                          p: 1,
+                          borderRadius: 8,
+                        }}
+                      />
+                      <h2>Major</h2>
+                    </div>
+                    <p style={{ marginLeft: "100px", fontStyle: "bold" }}>
+                      {user.major ? (
+                        user.major.major_name
+                      ) : (
+                        <>
+                          {" "}
+                          {userParam ? (
+                            <>{`Have not chosen a major.`}</>
+                          ) : (
+                            <>
+                              <List
+                                component="nav"
+                                aria-label="Device settings"
+                                sx={{ bgcolor: "background.paper" }}
+                              >
+                                <ListItem
+                                  button
+                                  id="lock-button"
+                                  aria-haspopup="listbox"
+                                  aria-controls="lock-menu"
+                                  aria-label="when device is locked"
+                                  aria-expanded={
+                                    openMajorMenu ? "true" : undefined
+                                  }
+                                  onClick={handleClickListItem}
+                                >
+                                  <ListItemText
+                                    primary={major_types[selectedIndex]}
+                                    secondary="Click to select major"
+                                  />
+                                </ListItem>
+                              </List>
+                              <Menu
+                                id="lock-menu"
+                                anchorEl={anchorEl}
+                                open={openMajorMenu}
+                                onClose={handleMajorClose}
+                                MenuListProps={{
+                                  "aria-labelledby": "lock-button",
+                                  role: "listbox",
+                                }}
+                              >
+                                {major_types.map((option, index) => (
+                                  <MenuItem
+                                    key={option}
+                                    disabled={index === 0}
+                                    selected={index === selectedIndex}
+                                    onClick={(event) =>
+                                      handleMenuItemClick(event, index)
+                                    }
+                                  >
+                                    {option}
+                                  </MenuItem>
+                                ))}
+                              </Menu>
+                            </>
+                          )}
+                        </>
+                      )}
+                    </p>
+                  </div>
+                  <div className="profile-item">
+                    <div className="profile-title">
+                      <PeopleIcon
+                        sx={{
+                          fontSize: "30px",
+                          color: "var(--primary)",
+                          m: "10px",
+                          backgroundColor: "var(--secondary)",
+                          p: 1,
+                          borderRadius: 8,
+                        }}
+                      />
+                      <h2>Friends List</h2>
+                    </div>
+                    <Button
+                      sx={{
+                        marginLeft: "35px",
+                        fontStyle: "bold",
+                        width: "300px",
+                      }}
+                      onClick={handleOpen}
+                    >
+                      Expand Friends List
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            ) : (
+              <p>Loading</p>
+            )}
+          </div>
+          {user.upvotes ? (
+            <div className="lower-profile">
+              <div className="likes-title">
+                <h1
+                  style={{ fontSize: "6mm", color: "var(--primary)" }}
+                >{`${user.username}'s upvoted Universities`}</h1>
+                {user.upvotes.length > 1 ? (
+                  <p
+                    style={{ fontSize: "5mm", color: "var(--primary)" }}
+                  >{`(${user.upvotes.length}) likes`}</p>
+                ) : (
+                  <p
+                    style={{ fontSize: "5mm", color: "var(--primary)" }}
+                  >{`(${user.upvotes.length}) like`}</p>
+                )}
+              </div>
+              {user.upvotes.map((university, index) => (
+                <>
+                  <div className="upvoted-uni">
+                    <Card
+                      sx={{
+                        width: "30%",
+                        m: 1,
+                        borderRadius: "5%",
+                        boxShadow: "-15px 15px #1f6150 ",
+                        height: "200px",
+                        maxHeight: 500,
+                        // mt: "7%",
+                      }}
+                    >
+                      <CardMedia
+                        sx={{ height: "100%" }}
+                        image={`/images/${university.university_image}`}
+                        title={`${university.university_name} image`}
+                      />
+                    </Card>
+                    <Card
+                      sx={{
+                        width: "50%",
+                        m: 1,
+                        borderRadius: "5%",
+                        boxShadow: "-15px 15px #1f6150 ",
+                        height: "200px",
+                        // mt: "7%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <h1 className="upvoted-uni-title">
+                        <Link
+                          style={{ textDecoration: "none", color: "white" }}
+                          to={`/university-profile/${university.university_name}`}
+                        >
+                          {university.university_name}
+                        </Link>
+                      </h1>
+                    </Card>
+                  </div>
+                </>
+              ))}
+            </div>
+          ) : (
+            <h1>No upvoted universities yet.</h1>
+          )}
         </div>
-        <div className="friends-section white flex-column-user">
-          <Typography
-            gutterBottom
-            variant="h3"
-            component="div"
-            color={"#000000"}
-            m={4}
-          >
-          Friends (count)
-          </Typography>  
-
-        </div>
-      </div>
-    </Container>
+      </Container>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          {user.friends != "" ? (
+            <>
+              {user.friends.map((friend) => (
+                <div>
+                  <List
+                    sx={{
+                      width: "100%",
+                      maxWidth: 360,
+                      bgcolor: "background.paper",
+                    }}
+                  >
+                    {" "}
+                    <FriendList
+                      key={friend._id}
+                      first_name={friend.first_name}
+                      last_name={friend.last_name}
+                      username={friend.username}
+                    />
+                  </List>
+                </div>
+              ))}
+            </>
+          ) : (
+            <p>No friends...</p>
+          )}
+        </Box>
+      </Modal>
+    </>
   );
 };
 

@@ -301,7 +301,7 @@ const Home = () => {
                     color: "#1f6150",
                     // backgroundColor: "#1f6150",
                   }}
-                  to={"/contact"}
+                  to={"/guide"}
                 >
                   <ReadMoreIcon
                     sx={{

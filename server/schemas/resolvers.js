@@ -22,7 +22,13 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     users: async () => {
-      return User.find().populate("university");
+      return User.find()
+        .populate("university")
+        .select("-__v -password")
+        .populate("university")
+        .populate("friends")
+        .populate("upvotes")
+        .populate("major");
     },
     otherUser: async (parent, { username }) => {
       return User.findOne({ username })

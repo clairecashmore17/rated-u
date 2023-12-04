@@ -280,16 +280,16 @@ const Navigation = () => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <Link to={"/profile"}>
-                    <MenuItem
-                      key={"Account"}
-                      onClick={() => {
-                        handleCloseUserMenu();
-                      }}
-                    >
-                      <Typography textAlign="center">Account</Typography>
-                    </MenuItem>
-                  </Link>
+                  <MenuItem
+                    key={"Account"}
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      window.location.replace("/profile");
+                    }}
+                  >
+                    <Typography textAlign="center">Account</Typography>
+                  </MenuItem>
+
                   <MenuItem
                     key={"Logout"}
                     onClick={() => {

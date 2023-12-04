@@ -3,7 +3,15 @@ const { User, University } = require("../models");
 const { Major } = require("../models");
 const { signToken } = require("../utils/auth");
 const { findById } = require("../models/User");
-const { GMU, GWU, VTECH } = require("../utils/universities");
+const {
+  GMU,
+  GWU,
+  VTECH,
+  GTOWN,
+  UMD,
+  MU,
+  TRINITY,
+} = require("../utils/universities");
 
 const resolvers = {
   Query: {
@@ -22,7 +30,13 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     users: async () => {
-      return User.find().populate("university");
+      return User.find()
+        .populate("university")
+        .select("-__v -password")
+        .populate("university")
+        .populate("friends")
+        .populate("upvotes")
+        .populate("major");
     },
     otherUser: async (parent, { username }) => {
       return User.findOne({ username })
@@ -60,7 +74,7 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, args) => {
       const uni_email = args.email.split("@")[1];
-      console.log(uni_email);
+      // console.log(uni_email);
       var user_university = "";
       // Assigning University
       switch (uni_email) {
@@ -74,6 +88,22 @@ const resolvers = {
           break;
         case "vt.edu":
           user_university = VTECH;
+          // console.log(`You go to ${VTECH}`);
+          break;
+        case "georgetown.edu":
+          user_university = GTOWN;
+          // console.log(`You go to ${VTECH}`);
+          break;
+        case "umd.edu":
+          user_university = UMD;
+          // console.log(`You go to ${VTECH}`);
+          break;
+        case "marymount.edu":
+          user_university = MU;
+          // console.log(`You go to ${VTECH}`);
+          break;
+        case "trinitydc.edu":
+          user_university = TRINITY;
           // console.log(`You go to ${VTECH}`);
           break;
         default:
@@ -183,9 +213,9 @@ const resolvers = {
         const result = university.upvotes.filter(function (el) {
           return el.username == context.user.username;
         });
-        console.log("RESULT \n:" + result);
+        // console.log("RESULT \n:" + result);
         if (result == "") {
-          console.log("no matching username in upvote, adding upvote. \n");
+          // console.log("no matching username in upvote, adding upvote. \n");
           const upvote = await University.findByIdAndUpdate(
             { _id: universityId },
             { $push: { upvotes: { username: context.user.username } } },

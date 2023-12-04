@@ -60,6 +60,32 @@ db.once("open", async () => {
         majors[5]._id,
         majors[6]._id,
       ],
+      comments: [
+        {
+          commentText: "I love this school!",
+          username: "Jsmith",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I hate this school!",
+          username: "pamNj",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I don't really have an opinion about this school.",
+          username: "mscott",
+          createdAt: Date.now(),
+        },
+      ],
+      upvotes: [
+        {
+          username: "Omart",
+        },
+        {
+          username: "gtownGal122",
+        },
+        { username: "pamNj" },
+      ],
     },
     {
       university_name: "Virginia Tech",
@@ -73,6 +99,23 @@ db.once("open", async () => {
         majors[4]._id,
         majors[5]._id,
         majors[6]._id,
+      ],
+      comments: [
+        {
+          commentText: "I love this school!",
+          username: "office_mance",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I hate this school!",
+          username: "gtownGal122",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I don't really have an opinion about this school.",
+          username: "Omart",
+          createdAt: Date.now(),
+        },
       ],
     },
     {
@@ -89,6 +132,29 @@ db.once("open", async () => {
         majors[5]._id,
         majors[6]._id,
       ],
+      comments: [
+        {
+          commentText: "I love this school!",
+          username: "pamNj",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I hate this school!",
+          username: "gtownGal122",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I don't really have an opinion about this school.",
+          username: "JSmith",
+          createdAt: Date.now(),
+        },
+      ],
+      upvotes: [
+        {
+          username: "Omart",
+        },
+        { username: "pamNj" },
+      ],
     },
     {
       university_name: "Georgetown University",
@@ -102,6 +168,33 @@ db.once("open", async () => {
         majors[3]._id,
         majors[4]._id,
         majors[5]._id,
+      ],
+      comments: [
+        {
+          commentText: "I love this school!",
+          username: "mscott",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I hate this school!",
+          username: "pamNj",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I don't really have an opinion about this school.",
+          username: "Omart",
+          createdAt: Date.now(),
+        },
+      ],
+      upvotes: [
+        {
+          username: "Omart",
+        },
+        {
+          username: "mscott",
+        },
+        { username: "JSmith" },
+        { username: "pamNj" },
       ],
     },
     {
@@ -118,6 +211,29 @@ db.once("open", async () => {
         majors[5]._id,
         majors[6]._id,
       ],
+      comments: [
+        {
+          commentText: "I love this school!",
+          username: "Omart",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I hate this school!",
+          username: "office_menace",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I don't really have an opinion about this school.",
+          username: "gtownGal122",
+          createdAt: Date.now(),
+        },
+      ],
+      upvotes: [
+        {
+          username: "office_menace",
+        },
+        { username: "JSmith" },
+      ],
     },
     {
       university_name: "Marymount University",
@@ -125,6 +241,34 @@ db.once("open", async () => {
       description:
         "Founded in 1950 by the Religious of the Sacred Heart of Mary (RSHM), Marymount University is an independent, co-educational Catholic university offering bachelor's, master's, and doctoral degrees in a wide range of disciplines.",
       majors: [majors[3]._id],
+      comments: [
+        {
+          commentText: "I love this school!",
+          username: "Jsmith",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I hate this school!",
+          username: "pamNj",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I don't really have an opinion about this school.",
+          username: "mscott",
+          createdAt: Date.now(),
+        },
+      ],
+      upvotes: [
+        {
+          username: "gtownGal122",
+        },
+        {
+          username: "mscott",
+        },
+        {
+          username: "office_menace",
+        },
+      ],
     },
     {
       university_name: "Trinity Washington University",
@@ -132,6 +276,31 @@ db.once("open", async () => {
       description:
         "Trinity Washington University is a small private university located on an urban campus in Washington, District of Columbia. It has a total undergraduate enrollment of 1,444, and admissions are selective, with an acceptance rate of 96%.",
       majors: [majors[0]._id, majors[2]._id],
+      comments: [
+        {
+          commentText: "I love this school!",
+          username: "Jsmith",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I hate this school!",
+          username: "pamNj",
+          createdAt: Date.now(),
+        },
+        {
+          commentText: "I don't really have an opinion about this school.",
+          username: "mscott",
+          createdAt: Date.now(),
+        },
+      ],
+      upvotes: [
+        {
+          username: "gtownGal122",
+        },
+        {
+          username: "mscott",
+        },
+      ],
     },
   ]);
   console.log("University seeded");
@@ -146,6 +315,13 @@ db.once("open", async () => {
     password: "password",
     university: university[5]._id,
     major: majors[3]._id,
+    upvotes: [
+      "656d2eda70ce782599cec493",
+
+      "656d2eda70ce782599cec488",
+
+      "656d2eda70ce782599cec499",
+    ],
   });
 
   await User.create({
@@ -156,6 +332,7 @@ db.once("open", async () => {
     password: "password",
     university: university[0]._id,
     major: majors[0]._id,
+    upvotes: [university[0]._id, , university[1]._id],
   });
   await User.create({
     first_name: "Jim",
@@ -165,6 +342,7 @@ db.once("open", async () => {
     password: "password",
     university: university[2]._id,
     major: majors[2]._id,
+    upvotes: [university[1]._id, university[2]._id],
   });
   await User.create({
     first_name: "Michael",
@@ -174,6 +352,7 @@ db.once("open", async () => {
     password: "password",
     university: university[1]._id,
     major: majors[1]._id,
+    upvotes: [university[2]._id, university[3]._id],
   });
   await User.create({
     first_name: "Jenna",
@@ -183,6 +362,7 @@ db.once("open", async () => {
     password: "password",
     university: university[3]._id,
     major: majors[4]._id,
+    upvotes: [university[0]._id, university[4]._id],
   });
   await User.create({
     first_name: "Oscar",
@@ -192,6 +372,7 @@ db.once("open", async () => {
     password: "password",
     university: university[4]._id,
     major: majors[5]._id,
+    upvotes: [university[5]._id, university[6]._id],
   });
   console.log("users removed");
 

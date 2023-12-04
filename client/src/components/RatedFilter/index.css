@@ -1,7 +1,9 @@
 .dets > div:nth-child(even) {
   background: var(--secondary);
 }
-
+.dets-reverse > div:nth-child(odd) {
+  background: var(--secondary);
+}
 .home-box-filter {
   height: fit-content;
 

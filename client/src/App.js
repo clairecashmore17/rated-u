@@ -20,6 +20,7 @@ import Contact from "./components/Contact";
 import About from "./components/About";
 import Footer from "./components/Footer";
 import Test from "./components/Test";
+import UserProfile from "./components/UserProfile";
 import { FilterProvider } from "./utils/GlobalState";
 import UniversityProfile from "./components/UniversityProfile";
 const httpLink = createHttpLink({
@@ -58,6 +59,10 @@ function App() {
                 path="/university-profile/:universityName"
                 element={<UniversityProfile />}
               />
+              <Route path="/profile">
+                <Route path=":username" element={<UserProfile />} />
+                <Route path="" element={<UserProfile />} />
+              </Route>
               <Route path="/test" element={<Test />} />
             </Routes>
             <Footer />

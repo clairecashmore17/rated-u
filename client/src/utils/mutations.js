@@ -58,3 +58,24 @@ export const ADD_UPVOTE = gql`
     }
   }
 `;
+
+export const ADD_FRIEND = gql`
+  mutation addFriend($friendId: ID!) {
+    addFriend(friendId: $friendId) {
+      username
+      _id
+      first_name
+      last_name
+    }
+  }
+`;
+export const UPDATE_MAJOR = gql`
+  mutation UpdateUserMajor($majorName: String!) {
+    updateUserMajor(major_name: $majorName) {
+      username
+      major {
+        major_name
+      }
+    }
+  }
+`;

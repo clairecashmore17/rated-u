@@ -13,6 +13,8 @@ import {
   Card,
   CardMedia,
   IconButton,
+  Alert,
+  Stack,
 } from "@mui/material";
 import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
 import { styled } from "@mui/system";
@@ -40,10 +42,11 @@ const UniversityProfile = () => {
   // Set states to handle user inputs, mutations, and queries.
   const [commentText, setComment] = useState("");
   const [addComment, { error }] = useMutation(ADD_COMMENT);
-  const [addUpvote, { error: praiseError }] = useMutation(ADD_UPVOTE);
+  const [addUpvote, { error: upvoteError }] = useMutation(ADD_UPVOTE);
   // grab the string from the URL (the university name)
   const { universityName: userParam } = useParams();
-
+  // Toggle validation alerts
+  const [showAlert, setShowAlert] = useState(false);
   // Query the information of the university
   const { loading, data, refetch } = useQuery(QUERY_UNIVERSITY, {
     variables: { universityName: userParam },
@@ -95,6 +98,7 @@ const UniversityProfile = () => {
       });
     } catch (e) {
       console.log(e);
+      setShowAlert(true);
     }
   };
 
@@ -136,7 +140,15 @@ const UniversityProfile = () => {
               }}
             >
               <h1 className="uni-title">{data.university.university_name}</h1>
-
+              {showAlert ? (
+                <Stack>
+                  <Alert severity="error" onClose={() => setShowAlert(false)}>
+                    {upvoteError.toString()}
+                  </Alert>
+                </Stack>
+              ) : (
+                <></>
+              )}{" "}
               <p className="uni-description">{data.university.description}</p>
               <div className="likes">
                 <IconButton
@@ -189,6 +201,7 @@ const UniversityProfile = () => {
                       color: "black",
                     },
                   }}
+                  disabled={!commentText}
                   onClick={handleFormSubmit}
                 >
                   Comment
@@ -218,10 +231,26 @@ const UniversityProfile = () => {
               <div className="dets">
                 {data.university.comments.map((comment, index) => (
                   <div className="comment ">
-                    <div className="account">
-                      <AccountCircleSharpIcon sx={{ fontSize: "50px" }} />
-                      <p>@{comment.username}</p>
-                    </div>
+                    <Link
+                      to={`/profile/${comment.username}`}
+                      style={{
+                        textDecoration: "none",
+                        color: "black",
+                      }}
+                    >
+                      {" "}
+                      <div className="account">
+                        <AccountCircleSharpIcon
+                          sx={{
+                            fontSize: "50px",
+                            ":hover": {
+                              color: "var(--primary)",
+                            },
+                          }}
+                        />
+                        <p>@{comment.username}</p>
+                      </div>
+                    </Link>
                     <div className="comment-text">
                       <p className="c-text">{comment.commentText}</p>
                     </div>

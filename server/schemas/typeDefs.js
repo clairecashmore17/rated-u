@@ -41,10 +41,12 @@ const typeDefs = gql`
     university: University
     major: Major
     friends: [User]
+    upvotes: [University]
   }
   type Query {
     user: User
     users: [User]
+    otherUser(username: String): User
     majors: [Major]
     universities: [University]
     university(universityName: String): University
@@ -60,7 +62,7 @@ const typeDefs = gql`
       university: ID
       major: ID
     ): Auth
-
+    updateUserMajor(major_name: String!): User
     login(email: String!, password: String!): Auth
 
     addFriend(friendId: ID!): User

@@ -1,0 +1,89 @@
+.upper-profile {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 35px;
+}
+.profile-items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 50px;
+}
+.profile-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 30px;
+}
+.profile-title {
+  display: flex;
+  color: var(--primary);
+}
+.upvoted-uni {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  border-top: dotted #1f6150 1px;
+  border-bottom: dotted #1f6150 1px;
+}
+.upvoted-uni-title {
+  background-color: var(--primary);
+  padding: 12px;
+  padding-bottom: 14px;
+  /* margin-top: 45px; */
+  color: white;
+  border-radius: 25px;
+  font-size: 5mm;
+}
+.likes-title {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-left: 80px;
+  margin-bottom: 20px;
+}
+.lower-profile {
+  margin-bottom: 50px;
+  margin-top: 0px;
+  padding-bottom: 50px;
+  background-color: white;
+  border-top: solid #1f6150 3px;
+  border-bottom: solid #1f6150 3px;
+}
+.m5 {
+  margin: 5%;
+  margin-top: 10px;
+}
+.subtext {
+  font-size: max(30px, 5px);
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background: white;
+  padding: 30px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+.dets > div:nth-child(even) {
+  background: var(--secondary);
+}

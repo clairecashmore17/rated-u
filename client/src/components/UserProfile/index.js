@@ -25,12 +25,13 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import SchoolIcon from "@mui/icons-material/School";
 import PeopleIcon from "@mui/icons-material/People";
 import "./index.css";
 import FriendList from "../FriendList";
+import AddIcon from '@mui/icons-material/Add';
 
 const UserProfile = () => {
   //getting url parameter
@@ -57,6 +58,7 @@ const UserProfile = () => {
   const openMajorMenu = Boolean(anchorEl);
   // Toggle validation alerts
   const [showAlert, setShowAlert] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const [addFriend, { error }] = useMutation(ADD_FRIEND);
   const [updateMjaor, { error: majorError }] = useMutation(UPDATE_MAJOR);
@@ -74,6 +76,7 @@ const UserProfile = () => {
       await addFriend({
         variables: { friendId: user._id },
       });
+      setShowPopup(true);
     } catch (e) {
       console.error(e);
       setShowAlert(true);
@@ -116,6 +119,11 @@ const UserProfile = () => {
     p: 4,
   };
 
+  const closePopup = () => {
+    // Close the popup
+    setShowPopup(false);
+  };
+
   return (
     <>
       <Container
@@ -136,11 +144,12 @@ const UserProfile = () => {
             >
               <Card
                 sx={{
-                  width: "100%",
-                  m: 3,
-                  borderRadius: "5%",
-                  boxShadow: "-15px 15px #1f6150 ",
-                  height: 350,
+                  maxWidth: 1000,
+                  minWidth: 400,
+                  m: 5,
+                  borderRadius: "20%",
+                  boxShadow: "-20px 20px #1f6150 ",
+                  height: 400,
                   // mt: "7%",
                   display: "flex",
                   flexDirection: "column",
@@ -148,9 +157,14 @@ const UserProfile = () => {
                   alignItems: "center",
                 }}
               >
-                <AccountCircleSharpIcon
-                  sx={{ fontSize: "150px", color: "var(--primary)" }}
-                />
+                <AccountCircleIcon
+                sx={{
+                  fontSize: "200px",
+                  color: "var(--primary)",
+                  pt: "10px",
+                  borderRadius: "50px",
+                }}
+              />
                 <CardContent
                   sx={{
                     display: "flex",
@@ -160,17 +174,19 @@ const UserProfile = () => {
                 >
                   <Typography
                     gutterBottom
-                    variant="h5"
+                    variant="h3"
                     component="div"
-                    pb={"30px"}
-                    color={"#1f6150"}
+                    pb={"10px"}
+                    mt={-2}
+                    color={"#000000"}
                   >
                     {`${user.first_name} ${user.last_name}`}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                    fontSize={"5mm"}
+                    fontSize={"8mm"}
+                    mt={-2}
                   >
                     {`@${user.username}`}
                   </Typography>
@@ -191,11 +207,24 @@ const UserProfile = () => {
                     <></>
                   )}
                   <Button
-                    variant="contained"
                     onClick={handleAddFriend}
+                    variant="contained"
+                    type="button"
+                    startIcon={<AddIcon />}
                     disabled={showAlert}
+                    sx={{
+                    m: "5%",
+                    mb: 2,
+                    backgroundColor: "#1f6150",
+                    borderRadius: 2,
+                    color: "white",
+                    maxWidth: "60%",
+                    minWidth: "120px",
+                    minHeight: "60px",
+                    fontSize: 20
+                    }}
                   >
-                    Add friend
+                    Add Friend
                   </Button>
                 </>
               ) : (
@@ -206,11 +235,13 @@ const UserProfile = () => {
               <Card
                 sx={{
                   width: "50%",
-                  m: 2,
-                  p: 2,
-                  borderRadius: "5%",
-                  boxShadow: "-15px 15px #1f6150 ",
-                  height: 400,
+                  m: 5,
+                  pl: 6,
+                  pt: 2,
+                  pr: 0,
+                  borderRadius: "20%",
+                  boxShadow: "-20px 20px #1f6150 ",
+                  height: 525,
                   // mt: "7%",
                   display: "flex",
                   flexDirection: "column",
@@ -225,7 +256,7 @@ const UserProfile = () => {
                         sx={{
                           fontSize: "30px",
                           color: "var(--primary)",
-                          m: "10px",
+                          m: "15px",
                           backgroundColor: "var(--secondary)",
                           p: 1,
                           borderRadius: 8,
@@ -233,9 +264,14 @@ const UserProfile = () => {
                       />
                       <h2>University</h2>
                     </div>
-                    <p style={{ marginLeft: "100px", fontStyle: "bold" }}>
+                    <Typography
+                      variant="h5"
+                      component="div"
+                      color={"#000000"}
+                      ml={13}
+                    >
                       {user.university.university_name}
-                    </p>
+                    </Typography>
                   </div>
                   <div className="profile-item">
                     <div className="profile-title">
@@ -243,7 +279,7 @@ const UserProfile = () => {
                         sx={{
                           fontSize: "30px",
                           color: "var(--primary)",
-                          m: "10px",
+                          m: "15px",
                           backgroundColor: "var(--secondary)",
                           p: 1,
                           borderRadius: 8,
@@ -251,14 +287,21 @@ const UserProfile = () => {
                       />
                       <h2>Major</h2>
                     </div>
-                    <p style={{ marginLeft: "100px", fontStyle: "bold" }}>
+                    <p style={{ marginLeft: "90px", fontStyle: "bold", marginTop: "-20px", marginBottom: "-10px" }}>
                       {user.major ? (
                         user.major.major_name
                       ) : (
                         <>
                           {" "}
                           {userParam ? (
-                            <>{`Have not chosen a major.`}</>
+                            <>{<Typography
+                              variant="h5"
+                              component="div"
+                              color={"text.secondary"}
+                              mt={"20px"}
+                            >
+                              User has not chosen a major
+                            </Typography>}</>
                           ) : (
                             <>
                               <List
@@ -279,7 +322,9 @@ const UserProfile = () => {
                                 >
                                   <ListItemText
                                     primary={major_types[selectedIndex]}
+                                    primaryTypographyProps={{ style: { color: 'black', fontSize: '25px' } }}
                                     secondary="Click to select major"
+                                    secondaryTypographyProps={{ style: { color: 'var(--primary)', fontSize :'25px', textDecoration: 'underline' } }}
                                   />
                                 </ListItem>
                               </List>
@@ -318,7 +363,7 @@ const UserProfile = () => {
                         sx={{
                           fontSize: "30px",
                           color: "var(--primary)",
-                          m: "10px",
+                          m: "15px",
                           backgroundColor: "var(--secondary)",
                           p: 1,
                           borderRadius: 8,
@@ -331,10 +376,14 @@ const UserProfile = () => {
                         marginLeft: "35px",
                         fontStyle: "bold",
                         width: "300px",
+                        color: 'var(--primary)',
+                        fontSize :'24px',
+                        textDecoration: 'underline',
+                        textTransform: 'none'
                       }}
                       onClick={handleOpen}
                     >
-                      Expand Friends List
+                      Show Friends
                     </Button>
                   </div>
                 </div>
@@ -344,19 +393,37 @@ const UserProfile = () => {
             )}
           </div>
           {user.upvotes ? (
-            <div className="lower-profile">
+            <div className="lower-profile dets">
               <div className="likes-title">
-                <h1
-                  style={{ fontSize: "6mm", color: "var(--primary)" }}
-                >{`${user.username}'s upvoted Universities`}</h1>
-                {user.upvotes.length > 1 ? (
-                  <p
-                    style={{ fontSize: "5mm", color: "var(--primary)" }}
-                  >{`(${user.upvotes.length}) likes`}</p>
+                <Typography
+                    gutterBottom
+                    variant="h3"
+                    component="div"
+                    mt={5}
+                    color={"#000000"}
+                  >
+                    {`${user.first_name}'s Liked Universities`}
+                  </Typography>
+                {user.upvotes.length != 1 ? (
+                  <Typography
+                      fontSize="28px" 
+                      marginLeft="20px"
+                      marginTop="25px"
+                      component="div"
+                      color="text.secondary"
+                    >
+                      {`(${user.upvotes.length} likes)`}
+                    </Typography>
                 ) : (
-                  <p
-                    style={{ fontSize: "5mm", color: "var(--primary)" }}
-                  >{`(${user.upvotes.length}) like`}</p>
+                  <Typography
+                      fontSize="28px" 
+                      marginLeft="20px"
+                      marginTop="25px"
+                      component="div"
+                      color="text.secondary"
+                    >
+                      {`(${user.upvotes.length} like)`}
+                    </Typography>
                 )}
               </div>
               {user.upvotes.map((university, index) => (
@@ -364,11 +431,11 @@ const UserProfile = () => {
                   <div className="upvoted-uni">
                     <Card
                       sx={{
-                        width: "30%",
+                        width: "35%",
                         m: 1,
                         borderRadius: "5%",
-                        boxShadow: "-15px 15px #1f6150 ",
-                        height: "200px",
+                        boxShadow: "-12px 12px #1f6150 ",
+                        height: "300px",
                         maxHeight: 500,
                         // mt: "7%",
                       }}
@@ -381,10 +448,12 @@ const UserProfile = () => {
                     </Card>
                     <Card
                       sx={{
-                        width: "50%",
-                        m: 1,
+                        width: "35%",
+                        m: 5,
                         borderRadius: "5%",
-                        boxShadow: "-15px 15px #1f6150 ",
+                        borderColor: "black",
+                        border: "1px solid var(--primary)",
+                        boxShadow: "-10px 10px #1f6150 ",
                         height: "200px",
                         // mt: "7%",
                         display: "flex",
@@ -393,23 +462,48 @@ const UserProfile = () => {
                         alignItems: "center",
                       }}
                     >
-                      <h1 className="upvoted-uni-title">
-                        <Link
-                          style={{ textDecoration: "none", color: "white" }}
-                          to={`/university-profile/${university.university_name}`}
-                        >
+                      <Link
+                        style={{ textDecoration: "none", color: "white", fontSize: "18px" }}
+                        to={`/university-profile/${university.university_name}`}
+                      >
+                        <h1 className="upvoted-uni-title">
                           {university.university_name}
-                        </Link>
-                      </h1>
+                        </h1>
+                      </Link>
                     </Card>
                   </div>
                 </>
               ))}
             </div>
           ) : (
-            <h1>No upvoted universities yet.</h1>
+            <h1>No liked universities yet.</h1>
           )}
         </div>
+
+        {showPopup && (
+        <div className="overlay">
+          <div id="popup" className="popup">
+            <p className="m5 subtext"> {user.first_name} has been successfully added to your friends list!</p>
+            <Button
+             onClick={closePopup}
+             variant="contained"
+             type="button"
+             sx={{
+              margin: "auto",
+              backgroundColor: "#1f6150",
+              borderRadius: 2,
+              color: "white",
+              maxWidth: "60%",
+              minWidth: "120px",
+              minHeight: "60px",
+              fontSize: 20
+             }}
+            >
+            Close
+            </Button>
+          </div>
+        </div>
+      )}
       </Container>
       <Modal
         open={open}

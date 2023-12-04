@@ -23,7 +23,6 @@ import Test from "./components/Test";
 import UserProfile from "./components/UserProfile";
 import { FilterProvider } from "./utils/GlobalState";
 import UniversityProfile from "./components/UniversityProfile";
-import UserProfile from "./components/UserProfile";
 const httpLink = createHttpLink({
   uri: "/graphql",
 });

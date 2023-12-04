@@ -262,10 +262,12 @@ const Contact = () => {
                                 key={value}
                                 value={value.toString()}
                                 control={<Radio sx={{
-                                  color: '#000000', 
+                                  color: 'white', 
                                   '&.Mui-checked': { color: 'black' }, 
                                   '& .MuiSvgIcon-root': {
                                     fontSize: 35,
+                                    backgroundColor: "white",
+                                    borderRadius: '50%'
                                   },
                                   paddingLeft: '50px' 
                                   }} />
@@ -317,9 +319,7 @@ const Contact = () => {
              variant="contained"
              type="button"
              sx={{
-             m: "5%",
-             mb: 6,
-             ml: 40,
+              margin: 'auto',
              backgroundColor: "#1f6150",
              borderRadius: 2,
              color: "white",

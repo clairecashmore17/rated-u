@@ -63,7 +63,7 @@ db.once("open", async () => {
       comments: [
         {
           commentText: "I love this school!",
-          username: "Jsmith",
+          username: "JSmith",
           createdAt: Date.now(),
         },
         {
@@ -244,7 +244,7 @@ db.once("open", async () => {
       comments: [
         {
           commentText: "I love this school!",
-          username: "Jsmith",
+          username: "JSmith",
           createdAt: Date.now(),
         },
         {
@@ -279,7 +279,7 @@ db.once("open", async () => {
       comments: [
         {
           commentText: "I love this school!",
-          username: "Jsmith",
+          username: "JSmith",
           createdAt: Date.now(),
         },
         {

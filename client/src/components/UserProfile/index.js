@@ -25,13 +25,13 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import SchoolIcon from "@mui/icons-material/School";
 import PeopleIcon from "@mui/icons-material/People";
 import "./index.css";
 import FriendList from "../FriendList";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 
 const UserProfile = () => {
   //getting url parameter
@@ -61,7 +61,7 @@ const UserProfile = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   const [addFriend, { error }] = useMutation(ADD_FRIEND);
-  const [updateMjaor, { error: majorError }] = useMutation(UPDATE_MAJOR);
+  const [updateMajor, { error: majorError }] = useMutation(UPDATE_MAJOR);
   useEffect(() => {
     setUser(data?.user || data?.otherUser || {});
     console.log(data);
@@ -98,10 +98,19 @@ const UserProfile = () => {
     console.log(anchorEl);
   };
 
-  const handleMenuItemClick = (event, index) => {
+  const handleMenuItemClick = async (event, index) => {
     setSelectedIndex(index);
     setAnchorEl(null);
-    console.log(event.currentTarget.value);
+    console.log(event.nativeEvent.target.outerText);
+    try {
+      await updateMajor({
+        variables: { majorName: event.nativeEvent.target.outerText },
+      });
+    } catch (e) {
+      console.error(e);
+      // setShowAlert(true);
+    }
+    window.location.reload();
   };
 
   const handleMajorClose = () => {
@@ -158,13 +167,13 @@ const UserProfile = () => {
                 }}
               >
                 <AccountCircleIcon
-                sx={{
-                  fontSize: "200px",
-                  color: "var(--primary)",
-                  pt: "10px",
-                  borderRadius: "50px",
-                }}
-              />
+                  sx={{
+                    fontSize: "200px",
+                    color: "var(--primary)",
+                    pt: "10px",
+                    borderRadius: "50px",
+                  }}
+                />
                 <CardContent
                   sx={{
                     display: "flex",
@@ -213,15 +222,15 @@ const UserProfile = () => {
                     startIcon={<AddIcon />}
                     disabled={showAlert}
                     sx={{
-                    m: "5%",
-                    mb: 2,
-                    backgroundColor: "#1f6150",
-                    borderRadius: 2,
-                    color: "white",
-                    maxWidth: "60%",
-                    minWidth: "120px",
-                    minHeight: "60px",
-                    fontSize: 20
+                      m: "5%",
+                      mb: 2,
+                      backgroundColor: "#1f6150",
+                      borderRadius: 2,
+                      color: "white",
+                      maxWidth: "60%",
+                      minWidth: "120px",
+                      minHeight: "60px",
+                      fontSize: 20,
                     }}
                   >
                     Add Friend
@@ -287,21 +296,32 @@ const UserProfile = () => {
                       />
                       <h2>Major</h2>
                     </div>
-                    <p style={{ marginLeft: "90px", fontStyle: "bold", marginTop: "-20px", marginBottom: "-10px" }}>
+                    <p
+                      style={{
+                        marginLeft: "90px",
+                        fontStyle: "bold",
+                        marginTop: "-20px",
+                        marginBottom: "-10px",
+                      }}
+                    >
                       {user.major ? (
                         user.major.major_name
                       ) : (
                         <>
                           {" "}
                           {userParam ? (
-                            <>{<Typography
-                              variant="h5"
-                              component="div"
-                              color={"text.secondary"}
-                              mt={"20px"}
-                            >
-                              User has not chosen a major
-                            </Typography>}</>
+                            <>
+                              {
+                                <Typography
+                                  variant="h5"
+                                  component="div"
+                                  color={"text.secondary"}
+                                  mt={"20px"}
+                                >
+                                  User has not chosen a major
+                                </Typography>
+                              }
+                            </>
                           ) : (
                             <>
                               <List
@@ -322,9 +342,20 @@ const UserProfile = () => {
                                 >
                                   <ListItemText
                                     primary={major_types[selectedIndex]}
-                                    primaryTypographyProps={{ style: { color: 'black', fontSize: '25px' } }}
+                                    primaryTypographyProps={{
+                                      style: {
+                                        color: "black",
+                                        fontSize: "25px",
+                                      },
+                                    }}
                                     secondary="Click to select major"
-                                    secondaryTypographyProps={{ style: { color: 'var(--primary)', fontSize :'25px', textDecoration: 'underline' } }}
+                                    secondaryTypographyProps={{
+                                      style: {
+                                        color: "var(--primary)",
+                                        fontSize: "25px",
+                                        textDecoration: "underline",
+                                      },
+                                    }}
                                   />
                                 </ListItem>
                               </List>
@@ -376,10 +407,10 @@ const UserProfile = () => {
                         marginLeft: "35px",
                         fontStyle: "bold",
                         width: "300px",
-                        color: 'var(--primary)',
-                        fontSize :'24px',
-                        textDecoration: 'underline',
-                        textTransform: 'none'
+                        color: "var(--primary)",
+                        fontSize: "24px",
+                        textDecoration: "underline",
+                        textTransform: "none",
                       }}
                       onClick={handleOpen}
                     >
@@ -396,34 +427,34 @@ const UserProfile = () => {
             <div className="lower-profile dets">
               <div className="likes-title">
                 <Typography
-                    gutterBottom
-                    variant="h3"
-                    component="div"
-                    mt={5}
-                    color={"#000000"}
-                  >
-                    {`${user.first_name}'s Liked Universities`}
-                  </Typography>
+                  gutterBottom
+                  variant="h3"
+                  component="div"
+                  mt={5}
+                  color={"#000000"}
+                >
+                  {`${user.first_name}'s Liked Universities`}
+                </Typography>
                 {user.upvotes.length != 1 ? (
                   <Typography
-                      fontSize="28px" 
-                      marginLeft="20px"
-                      marginTop="25px"
-                      component="div"
-                      color="text.secondary"
-                    >
-                      {`(${user.upvotes.length} likes)`}
-                    </Typography>
+                    fontSize="28px"
+                    marginLeft="20px"
+                    marginTop="25px"
+                    component="div"
+                    color="text.secondary"
+                  >
+                    {`(${user.upvotes.length} likes)`}
+                  </Typography>
                 ) : (
                   <Typography
-                      fontSize="28px" 
-                      marginLeft="20px"
-                      marginTop="25px"
-                      component="div"
-                      color="text.secondary"
-                    >
-                      {`(${user.upvotes.length} like)`}
-                    </Typography>
+                    fontSize="28px"
+                    marginLeft="20px"
+                    marginTop="25px"
+                    component="div"
+                    color="text.secondary"
+                  >
+                    {`(${user.upvotes.length} like)`}
+                  </Typography>
                 )}
               </div>
               {user.upvotes.map((university, index) => (
@@ -463,7 +494,11 @@ const UserProfile = () => {
                       }}
                     >
                       <Link
-                        style={{ textDecoration: "none", color: "white", fontSize: "18px" }}
+                        style={{
+                          textDecoration: "none",
+                          color: "white",
+                          fontSize: "18px",
+                        }}
                         to={`/university-profile/${university.university_name}`}
                       >
                         <h1 className="upvoted-uni-title">
@@ -481,29 +516,33 @@ const UserProfile = () => {
         </div>
 
         {showPopup && (
-        <div className="overlay">
-          <div id="popup" className="popup">
-            <p className="m5 subtext"> {user.first_name} has been successfully added to your friends list!</p>
-            <Button
-             onClick={closePopup}
-             variant="contained"
-             type="button"
-             sx={{
-              margin: "auto",
-              backgroundColor: "#1f6150",
-              borderRadius: 2,
-              color: "white",
-              maxWidth: "60%",
-              minWidth: "120px",
-              minHeight: "60px",
-              fontSize: 20
-             }}
-            >
-            Close
-            </Button>
+          <div className="overlay">
+            <div id="popup" className="popup">
+              <p className="m5 subtext">
+                {" "}
+                {user.first_name} has been successfully added to your friends
+                list!
+              </p>
+              <Button
+                onClick={closePopup}
+                variant="contained"
+                type="button"
+                sx={{
+                  margin: "auto",
+                  backgroundColor: "#1f6150",
+                  borderRadius: 2,
+                  color: "white",
+                  maxWidth: "60%",
+                  minWidth: "120px",
+                  minHeight: "60px",
+                  fontSize: 20,
+                }}
+              >
+                Close
+              </Button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
       </Container>
       <Modal
         open={open}

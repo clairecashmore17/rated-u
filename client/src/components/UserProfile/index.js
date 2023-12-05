@@ -302,6 +302,7 @@ const UserProfile = () => {
                         fontStyle: "bold",
                         marginTop: "-20px",
                         marginBottom: "-10px",
+                        fontSize: "24px",
                       }}
                     >
                       {user.major ? (
